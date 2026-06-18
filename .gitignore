@@ -1,0 +1,12 @@
+# Virtual environment
+.venv/
+
+# PyCharm
+.idea/
+
+# Python cache
+__pycache__/
+
+# Personal notes
+design_notes.md
+markdown_notes.md
