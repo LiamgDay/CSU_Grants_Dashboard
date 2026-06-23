@@ -1,39 +1,39 @@
 import streamlit as st
-import pandas as pd
 
-from usaspending import USASpendingClient
+from load_grants import load_grants_dataframe
 
-from campuses import CSU_CAMPUSES
-from fetch_grants import fetch_awards_for_recipient
-from transform_grants import award_to_row
+if st.button("Refresh data"):
+    load_grants_dataframe.clear()
 
-
-all_rows = []
-
-with USASpendingClient() as client:
-
-    for campus in CSU_CAMPUSES:
-
-        campus_name = campus["display_name"]
-
-        for approved_recipient_name in campus["approved_recipient_names"]:
-
-            awards = fetch_awards_for_recipient(
-                client,
-                approved_recipient_name,
-            )
-
-            for award in awards:
-
-                row = award_to_row(
-                    award,
-                    campus_name,
-                    approved_recipient_name
-                )
-
-                all_rows.append(row)
-
-
-df = pd.DataFrame(all_rows)
-
-st.dataframe(df)
+df = load_grants_dataframe()
+st.dataframe(
+    df,
+    column_config={
+        "USAspending URL": st.column_config.LinkColumn(
+            "Prime Award ID",
+            help="Click to view in USAspending.gov",
+            display_text=r".*/award/ASST_NON_([^_]+)_.*"
+        ),
+        "Obligations": st.column_config.NumberColumn(
+            "Obligations",
+            format="$%,.2f",
+        ),
+        "Outlays": st.column_config.NumberColumn(
+            "Outlays",
+            format="$%,.2f",
+        ),
+    },
+    hide_index=True,
+    column_order=[
+        "USAspending URL",
+        "Recipient Name",
+        "Recipient UEI",
+        "Obligations",
+        "Outlays",
+        "Awarding Agency",
+        "Awarding Subagency",
+        "Period of Performance Start",
+        "Period of Performance End",
+        "Assisted Listing",
+    ],
+)
