@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Any
 
 
@@ -6,12 +7,12 @@ def award_to_row(award: Any, campus_name: str, approved_recipient_name: str) -> 
     Convert one USAspending award object into a clean dictionary row.
     """
     return {
-        "Prime Award ID": award.award_identifier or "Unknown", #use if the url system isn't working
+        "Prime Award ID": award.award_identifier or "Unknown",
         "USAspending URL": award.usa_spending_url or "Unknown",
         "Recipient Name": award.recipient.name or "Unknown", #good
         "Recipient UEI": award.recipient.uei or "Unknown", #good
         "Obligations": award.total_obligation or "Unknown",  # Decimal #good
-        "Outlays": award.total_obligation or "Unknown", #good
+        "Outlays": award.total_outlay if award.total_outlay is not None else Decimal("0.00"),
         "Awarding Agency": award.awarding_agency.name or "Unknown", #good
         "Awarding Subagency": award.awarding_subtier_agency.name or "Unknown", #check
         "Period of Performance Start": award.start_date,  # datetime.date
