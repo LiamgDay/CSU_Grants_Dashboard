@@ -13,11 +13,6 @@ def load_grants_for_recipient(
     uei: str = "",
     limit: int | None = None,
 ) -> pd.DataFrame:
-    """Load and cache grants for one recipient.
-
-    The cache is intentionally per recipient so selecting one campus at a time
-    builds reusable cached results for a later "all campuses" selection.
-    """
     query_value = uei.strip() or recipient_name
     rows = []
 
@@ -25,13 +20,14 @@ def load_grants_for_recipient(
         awards = fetch_awards_for_recipient(client, query_value, limit=limit)
 
         for award in awards:
-            rows.append(
-                award_to_row(
-                    award,
-                    campus_name,
-                    recipient_name,
-                )
+            row = award_to_row(
+                award,
+                campus_name,
+                recipient_name,
             )
+
+            if row["Recipient Name"].strip().casefold() == recipient_name.strip().casefold():
+                rows.append(row)
 
     return pd.DataFrame(rows)
 

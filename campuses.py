@@ -5,15 +5,15 @@ CSU_CAMPUSES = [
         "recipients": [
             {
                 "name": "California Polytechnic State University",
-                "uei": "",  # TODO: fill in verified UEI later.
+                "uei": "CPVFEDRAL3U6",
             },
             {
                 "name": "California Polytechnical University",
-                "uei": "",  # TODO: fill in verified UEI later.
+                "uei": "",
             },
             {
                 "name": "Cal Poly Corporation",
-                "uei": "",  # TODO: fill in verified UEI later.
+                "uei": "MC4RJJM9XLT5",
             },
         ],
     },
@@ -23,23 +23,23 @@ CSU_CAMPUSES = [
         "recipients": [
             {
                 "name": "San Diego State University Foundation",
-                "uei": "",  # TODO: fill in verified UEI later.
+                "uei": "H59JKGFZKHL7",
             },
             {
                 "name": "San Diego State University Fou",
-                "uei": "",  # TODO: fill in verified UEI later.
+                "uei": "",
             },
             {
                 "name": "San Diego State University",
-                "uei": "",  # TODO: fill in verified UEI later.
+                "uei": "RN4HGABGRWV7",
             },
             {
                 "name": "SDVAFA / SDSU",
-                "uei": "",  # TODO: fill in verified UEI later.
+                "uei": "",
             },
             {
                 "name": "SDSU Growth Partnership",
-                "uei": "",  # TODO: fill in verified UEI later.
+                "uei": "",
             },
         ],
     },
@@ -49,15 +49,16 @@ CSU_CAMPUSES = [
         "recipients": [
             {
                 "name": "California State University, Channel Islands Foundation",
-                "uei": "",  # TODO: fill in verified UEI later.
+                "uei": "XKLPG9DAK5J9",
             },
             {
                 "name": "California State University Channel Islands",
-                "uei": "",  # TODO: fill in verified UEI later.
+                "uei": "RN64EPNH8JC6",
             },
         ],
     },
 ]
+#ASSOCIATED STUDENTS INC OF CALIFORNIA POLYTECHNIC STATE UNIVERSITY AT SAN LUIS OBISPO is in subawards
 
 
 def iter_recipients():
