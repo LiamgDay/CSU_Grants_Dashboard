@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Changed display columns. Implemented Prime Award ID + URL. Rid of indices, fixed dollar formatting, kept dates as is due to PS dashboard.">
+    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Changed dataframe to AgGrid.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/campuses.py" beforeDir="false" afterPath="$PROJECT_DIR$/campuses.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetch_grants.py" beforeDir="false" afterPath="$PROJECT_DIR$/fetch_grants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/load_grants.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_grants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transform_grants.py" beforeDir="false" afterPath="$PROJECT_DIR$/transform_grants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +88,8 @@
       <workItem from="1782156703963" duration="14192000" />
       <workItem from="1782322688600" duration="2331000" />
       <workItem from="1782327662778" duration="1396000" />
-      <workItem from="1782329092021" duration="10183000" />
+      <workItem from="1782329092021" duration="10233000" />
+      <workItem from="1782407464720" duration="5964000" />
     </task>
     <task id="LOCAL-00001" summary="Set up workspace and decided to use dataframe for the raw data table.">
       <option name="closed" value="true" />
@@ -112,7 +115,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782175280424</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Changed dataframe to AgGrid.">
+      <option name="closed" value="true" />
+      <created>1782343330361</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1782343330361</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -122,7 +133,8 @@
     <MESSAGE value="Set up workspace and decided to use dataframe for the raw data table." />
     <MESSAGE value="Installed USASpending table display for just Cal Poly Corporation." />
     <MESSAGE value="Changed display columns. Implemented Prime Award ID + URL. Rid of indices, fixed dollar formatting, kept dates as is due to PS dashboard." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed display columns. Implemented Prime Award ID + URL. Rid of indices, fixed dollar formatting, kept dates as is due to PS dashboard." />
+    <MESSAGE value="Changed dataframe to AgGrid." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed dataframe to AgGrid." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSU_Grants_Dashboard$dashboard.coverage" NAME="dashboard Coverage Results" MODIFIED="1781921630072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

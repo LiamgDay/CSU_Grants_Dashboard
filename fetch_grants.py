@@ -2,11 +2,15 @@ from typing import Any
 from usaspending import USASpendingClient
 
 
-def fetch_awards_for_recipient(client: USASpendingClient, recipient_name: str, limit: int | None = 5) -> list[Any]:
-
+def fetch_awards_for_recipient(
+    client: USASpendingClient,
+    recipient_search_text: str,
+    limit: int | None = None,
+) -> list[Any]:
+    """Fetch prime grant awards for one USAspending recipient search value."""
     query = (
         client.awards.search()
-        .recipient_search_text(recipient_name)
+        .recipient_search_text(recipient_search_text)
         .grants()
     )
 

@@ -1,32 +1,65 @@
-from usaspending import USASpendingClient
-from campuses import CSU_CAMPUSES
+import pandas as pd
 import streamlit as st
+from usaspending import USASpendingClient
+
 from fetch_grants import fetch_awards_for_recipient
 from transform_grants import award_to_row
-import pandas as pd
 
 
+@st.cache_data(ttl=60 * 60 * 24, show_spinner=False)
+def load_grants_for_recipient(
+    campus_name: str,
+    recipient_name: str,
+    uei: str = "",
+    limit: int | None = None,
+) -> pd.DataFrame:
+    """Load and cache grants for one recipient.
 
-@st.cache_data(ttl=60 * 60 * 24)  # cache for 24 hours
-def load_grants_dataframe():
-    all_rows = []
+    The cache is intentionally per recipient so selecting one campus at a time
+    builds reusable cached results for a later "all campuses" selection.
+    """
+    query_value = uei.strip() or recipient_name
+    rows = []
 
     with USASpendingClient() as client:
-        for campus in CSU_CAMPUSES:
-            campus_name = campus["display_name"]
+        awards = fetch_awards_for_recipient(client, query_value, limit=limit)
 
-            for approved_recipient_name in campus["approved_recipient_names"]:
-                awards = fetch_awards_for_recipient(
-                    client,
-                    approved_recipient_name,
+        for award in awards:
+            rows.append(
+                award_to_row(
+                    award,
+                    campus_name,
+                    recipient_name,
                 )
+            )
 
-                for award in awards:
-                    row = award_to_row(
-                        award,
-                        campus_name,
-                        approved_recipient_name,
-                    )
-                    all_rows.append(row)
+    return pd.DataFrame(rows)
 
-    return pd.DataFrame(all_rows)
+
+def load_grants_dataframe(
+    selected_recipients: list[dict[str, str]],
+    limit: int | None = None,
+) -> pd.DataFrame:
+    """Load grants for selected recipients and combine them into one dataframe."""
+    frames = []
+
+    for recipient in selected_recipients:
+        frame = load_grants_for_recipient(
+            campus_name=recipient["campus_display_name"],
+            recipient_name=recipient["name"],
+            uei=recipient.get("uei", ""),
+            limit=limit,
+        )
+
+        if not frame.empty:
+            frames.append(frame)
+
+    if not frames:
+        return pd.DataFrame()
+
+    return pd.concat(frames, ignore_index=True)
+
+
+def clear_grants_cache() -> None:
+    """Clear cached per-recipient grant results."""
+    load_grants_for_recipient.clear()

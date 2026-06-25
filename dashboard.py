@@ -1,26 +1,104 @@
-import streamlit as st
 import pandas as pd
+import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
 
-from load_grants import load_grants_dataframe
+from campuses import CSU_CAMPUSES, get_recipient_options, get_recipients_by_key, recipient_key
+from load_grants import clear_grants_cache, load_grants_dataframe
 
 st.set_page_config(layout="wide")
+st.title("CSU Grants Dashboard")
 
-if st.button("Refresh data"):
-    load_grants_dataframe.clear()
+recipient_options = get_recipient_options()
+all_recipient_keys = [option["key"] for option in recipient_options]
 
-df = load_grants_dataframe()
+if "active_recipient_keys" not in st.session_state:
+    st.session_state["active_recipient_keys"] = []
 
-df["Obligations"] = df["Obligations"].astype(float)
-df["Outlays"] = df["Outlays"].astype(float)
+with st.sidebar:
+    st.header("Grant Search")
 
-df["Period of Performance Start"] = pd.to_datetime(
-    df["Period of Performance Start"]
-).dt.strftime("%Y-%m-%d")
+    select_all = st.checkbox("All CSUs", value=False)
+    selected_keys = set(all_recipient_keys if select_all else [])
 
-df["Period of Performance End"] = pd.to_datetime(
-    df["Period of Performance End"]
-).dt.strftime("%Y-%m-%d")
+    st.caption("Checking a campus selects every recipient currently mapped under it. Expand a campus to select individual recipients.")
+
+    for campus in CSU_CAMPUSES:
+        campus_recipients = campus["recipients"]
+        campus_keys = [
+            recipient_key(campus["id"], recipient["name"])
+            for recipient in campus_recipients
+        ]
+
+        campus_checked = st.checkbox(
+            campus["display_name"],
+            value=select_all,
+            key=f"campus_{campus['id']}",
+            disabled=select_all,
+        )
+
+        if campus_checked:
+            selected_keys.update(campus_keys)
+
+        with st.expander(f"{campus['display_name']} recipients"):
+            for recipient in campus_recipients:
+                key = recipient_key(campus["id"], recipient["name"])
+                recipient_checked = st.checkbox(
+                    recipient["name"],
+                    value=select_all or campus_checked,
+                    key=f"recipient_{key}",
+                    disabled=select_all or campus_checked,
+                )
+
+                if recipient_checked:
+                    selected_keys.add(key)
+
+    st.divider()
+
+    fetch_all_awards = st.checkbox("Fetch all matching awards", value=True)
+    award_limit = None
+
+    if not fetch_all_awards:
+        award_limit = st.number_input(
+            "Development award limit per recipient",
+            min_value=1,
+            max_value=1000,
+            value=5,
+            step=1,
+        )
+
+    if st.button("Load selected grants", type="primary"):
+        st.session_state["active_recipient_keys"] = sorted(selected_keys)
+
+    if st.button("Refresh cached data"):
+        clear_grants_cache()
+        st.session_state["active_recipient_keys"] = sorted(selected_keys)
+        st.success("Cached grant data cleared.")
+
+active_recipient_keys = st.session_state["active_recipient_keys"]
+selected_recipients = get_recipients_by_key(active_recipient_keys)
+
+if not selected_recipients:
+    st.info("Select one or more campuses or recipients, then click Load selected grants.")
+    st.stop()
+
+with st.spinner("Loading selected grant data..."):
+    df = load_grants_dataframe(selected_recipients, limit=award_limit)
+
+if df.empty:
+    st.warning("No grant awards were returned for the selected recipients.")
+    st.stop()
+
+st.caption(
+    f"Showing {len(df):,} awards from {len(selected_recipients):,} selected recipient name(s)."
+)
+
+for column in ["Obligations", "Outlays"]:
+    if column in df.columns:
+        df[column] = pd.to_numeric(df[column], errors="coerce").fillna(0.0)
+
+for column in ["Period of Performance Start", "Period of Performance End"]:
+    if column in df.columns:
+        df[column] = pd.to_datetime(df[column], errors="coerce").dt.strftime("%Y-%m-%d")
 
 gb = GridOptionsBuilder.from_dataframe(df)
 
@@ -34,6 +112,8 @@ gb.configure_default_column(
     minWidth=160,
 )
 
+gb.configure_column("Campus", minWidth=180)
+gb.configure_column("Searched Recipient Name", minWidth=280)
 gb.configure_column("Recipient Name", minWidth=260)
 gb.configure_column("Awarding Agency", minWidth=220)
 gb.configure_column("Awarding Subagency", minWidth=260)
