@@ -3,13 +3,11 @@ from typing import Any
 from usaspending import Award
 
 
-def award_to_row(award: Award, campus_name: str, approved_recipient_name: str) -> dict[str, Any]:
+def award_to_row(award: Award) -> dict[str, Any]:
     """Convert one USAspending award object into a clean dictionary row."""
     # The Awards are really Grants (subclasses) which is why primary_cfda_info works here despite being Grant specific.
     # When upgrading to include contracts, maybe have if Grant do primary_cfda_info, elif Contract do something else.
     return {
-        "Campus": campus_name,
-        "Searched Recipient Name": approved_recipient_name,
         "Prime Award ID": award.award_identifier or "Unknown",
         "USAspending URL": award.usa_spending_url or "Unknown",
         "Recipient Name": getattr(award.recipient, "name", None) or "Unknown",

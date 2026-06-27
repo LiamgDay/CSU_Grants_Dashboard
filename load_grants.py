@@ -7,52 +7,27 @@ from transform_grants import award_to_row
 
 
 @st.cache_data(ttl=60 * 60 * 24, show_spinner=False)
-def load_grants_for_recipient(
-    campus_name: str,
-    recipient_name: str,
-    uei: str = "",
-    limit: int | None = None,
-) -> pd.DataFrame:
-    query_value = uei.strip() or recipient_name
+def load_grants_for_recipient(recipient_name: str, limit: int | None = None) -> pd.DataFrame:
+    """Load the grants for one recipient."""
     rows = []
-
     with USASpendingClient() as client:
-        awards = fetch_awards_for_recipient(client, query_value, limit=limit)
-
+        awards = fetch_awards_for_recipient(client, recipient_name, limit=limit)
         for award in awards:
-            row = award_to_row(
-                award,
-                campus_name,
-                recipient_name,
-            )
-
-            if row["Recipient Name"].strip().casefold() == recipient_name.strip().casefold():
+            row = award_to_row(award)
+            if row["Recipient Name"].strip().lower() == recipient_name.strip().lower():
                 rows.append(row)
-
     return pd.DataFrame(rows)
 
 
-def load_grants_dataframe(
-    selected_recipients: list[dict[str, str]],
-    limit: int | None = None,
-) -> pd.DataFrame:
-    """Load grants for selected recipients and combine them into one dataframe."""
+def load_grants_dataframe(selected_recipients: list[dict[str, str]],limit: int | None = None) -> pd.DataFrame:
+    """Load grants for selected recipients."""
     frames = []
-
-    for recipient in selected_recipients:
-        frame = load_grants_for_recipient(
-            campus_name=recipient["campus_display_name"],
-            recipient_name=recipient["name"],
-            uei=recipient.get("uei", ""),
-            limit=limit,
-        )
-
+    for recipient in selected_recipients: # Check how it is used in dashboard.py
+        frame = load_grants_for_recipient(recipient["name"], limit)
         if not frame.empty:
             frames.append(frame)
-
     if not frames:
         return pd.DataFrame()
-
     return pd.concat(frames, ignore_index=True)
 
 

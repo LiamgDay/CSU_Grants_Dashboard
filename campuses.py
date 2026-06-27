@@ -1,5 +1,5 @@
 CSU_CAMPUSES = [
-    {
+    {   
         "id": "san_luis_obispo",
         "display_name": "San Luis Obispo",
         "recipients": [
