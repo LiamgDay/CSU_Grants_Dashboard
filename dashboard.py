@@ -110,8 +110,6 @@ gb.configure_default_column(
     minWidth=160,
 )
 
-gb.configure_column("Campus", minWidth=180)
-gb.configure_column("Searched Recipient Name", minWidth=280)
 gb.configure_column("Recipient Name", minWidth=260)
 gb.configure_column("Awarding Agency", minWidth=220)
 gb.configure_column("Awarding Subagency", minWidth=260)
@@ -179,3 +177,10 @@ AgGrid(
     allow_unsafe_jscode=True,
     theme="streamlit",
 )
+
+
+#CALIFORNIA STATE UNIVERSITY, BAKERSFIELD AUXILIARY FOR SPONSORED PROGRAMS ADMINISTRATION has 75
+#CALIFORNIA STATE UNIVERSITY BAKERSFIELD has 40
+#CALIFORNIA STATE UNIVERSITY, BAKERSFIELD has 1
+#CALIFORNIA STATE UNIVERSITY, BAKERSFIELD, FOUNDATION has 3
+
