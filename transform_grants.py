@@ -13,7 +13,7 @@ def award_to_row(award: Award) -> dict[str, Any]:
         "Recipient Name": getattr(award.recipient, "name", None) or "Unknown",
         "Recipient UEI": getattr(award.recipient, "uei", None) or "Unknown",
         "Obligations": award.total_obligation or Decimal("0.00"),
-        "Outlays": award.total_outlay if award.total_outlay is not None else Decimal("0.00"),
+        "Outlays": award.total_outlay or Decimal("0.00"),
         "Awarding Agency": getattr(award.awarding_agency, "name", None) or "Unknown",
         "Awarding Subagency": getattr(award.awarding_subtier_agency, "name", None) or "Unknown",
         "Period of Performance Start": award.start_date,

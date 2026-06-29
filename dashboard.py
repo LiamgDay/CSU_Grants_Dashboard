@@ -74,8 +74,7 @@ with st.sidebar:
         st.session_state["active_recipient_keys"] = sorted(selected_keys)
         st.success("Cached grant data cleared.")
 
-active_recipient_keys = st.session_state["active_recipient_keys"]
-selected_recipients = get_recipients_by_key(active_recipient_keys)
+selected_recipients = get_recipients_by_key(st.session_state["active_recipient_keys"])
 
 if not selected_recipients:
     st.info("Select one or more campuses or recipients, then click Load selected grants.")
@@ -92,9 +91,8 @@ st.caption(
     f"Showing {len(df):,} awards from {len(selected_recipients):,} selected recipient name(s)."
 )
 
-for column in ["Obligations", "Outlays"]:
-    if column in df.columns:
-        df[column] = pd.to_numeric(df[column], errors="coerce").fillna(0.0)
+df["Obligations"] = pd.to_numeric(df["Obligations"])
+df["Outlays"] = pd.to_numeric(df["Outlays"])
 
 for column in ["Period of Performance Start", "Period of Performance End"]:
     if column in df.columns:
@@ -167,7 +165,10 @@ gb.configure_grid_options(
     headerHeight=42,
     floatingFiltersHeight=36,
     domLayout="normal",
+    pagination=True,
+    paginationPageSize=25,
 )
+
 
 grid_options = gb.build()
 

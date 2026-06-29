@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Cleaned fetch_grants.py and transform_grants.py. Added README.md.">
+    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Cleaned load_grants.py.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/campuses.py" beforeDir="false" afterPath="$PROJECT_DIR$/campuses.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetch_grants.py" beforeDir="false" afterPath="$PROJECT_DIR$/fetch_grants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/load_grants.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_grants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transform_grants.py" beforeDir="false" afterPath="$PROJECT_DIR$/transform_grants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +90,9 @@
       <workItem from="1782407464720" duration="6103000" />
       <workItem from="1782428115638" duration="3410000" />
       <workItem from="1782504991074" duration="11067000" />
-      <workItem from="1782600224648" duration="3714000" />
+      <workItem from="1782600224648" duration="3974000" />
+      <workItem from="1782676896590" duration="5832000" />
+      <workItem from="1782693722015" duration="2187000" />
     </task>
     <task id="LOCAL-00001" summary="Set up workspace and decided to use dataframe for the raw data table.">
       <option name="closed" value="true" />
@@ -157,7 +158,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782522947088</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Cleaned load_grants.py.">
+      <option name="closed" value="true" />
+      <created>1782604516775</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1782604516775</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,7 +181,8 @@
     <MESSAGE value="Finished the TODOs from last push." />
     <MESSAGE value="requirements.txt added" />
     <MESSAGE value="Cleaned fetch_grants.py and transform_grants.py. Added README.md." />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned fetch_grants.py and transform_grants.py. Added README.md." />
+    <MESSAGE value="Cleaned load_grants.py." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaned load_grants.py." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSU_Grants_Dashboard$dashboard.coverage" NAME="dashboard Coverage Results" MODIFIED="1781921630072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

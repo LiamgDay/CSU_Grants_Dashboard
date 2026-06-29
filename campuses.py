@@ -61,7 +61,7 @@ CSU_CAMPUSES = [
 #ASSOCIATED STUDENTS INC OF CALIFORNIA POLYTECHNIC STATE UNIVERSITY AT SAN LUIS OBISPO is in subawards
 
 
-def iter_recipients():
+def iter_recipients(): #flattens, changes keys, and makes an entry for each recipient name (doesn't differentiate based on similar campus)
     """Yield every recipient with its parent campus metadata attached."""
     for campus in CSU_CAMPUSES:
         for recipient in campus["recipients"]:
@@ -77,7 +77,7 @@ def recipient_key(campus_id: str, recipient_name: str) -> str:
     return f"{campus_id}::{recipient_name}"
 
 
-def get_recipient_options() -> list[dict[str, str]]:
+def get_recipient_options() -> list[dict[str, str]]: #adds the "key" key that just includes campus id and name in one string together
     """Return flattened recipient options used by the dashboard and loader."""
     options = []
 
@@ -94,7 +94,7 @@ def get_recipient_options() -> list[dict[str, str]]:
     return options
 
 
-def get_recipients_by_key(keys: list[str] | set[str]) -> list[dict[str, str]]:
+def get_recipients_by_key(keys: list[str] | set[str]) -> list[dict[str, str]]:#returns a list of the selected keys but as dictionaries
     """Resolve selected Streamlit keys back to recipient configuration objects."""
     selected_keys = set(keys)
     return [
