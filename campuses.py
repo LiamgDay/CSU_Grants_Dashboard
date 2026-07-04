@@ -138,6 +138,97 @@ CSU_CAMPUSES = [
             {"name": "Associated Students, California State University, Northridge, Inc", "uei": "U8E7BJWCYD45"},
         ],
     },
+    {
+        "id": "pomona",
+        "display_name": "Pomona",
+        "recipients": [
+            {
+                "name": "Cal Poly Pomona Foundation Inc",
+                "uei": "JMGMMM7BMBT6",
+            },
+        ],
+    },
+    {
+        "id": "sacramento",
+        "display_name": "Sacramento",
+        "recipients": [
+            {
+                "name": "California State University Sacramento",
+                "uei": "K8JLGZSDVS89",
+            },
+            {
+                "name": "California State University at Sacramento Cen",
+            },
+            {
+                "name": "University Enterprises, Inc.",
+                "uei": "N58JMBDDUGU7",
+            },
+        ],
+    },
+    {
+        "id": "san_bernardino",
+        "display_name": "San Bernardino",
+        "recipients": [
+            {
+                "name": "University Enterprises Corporation at CSUSB",
+                "uei": "QJZ1F3UMLEJ4",
+            },
+        ],
+    },
+    {
+        "id": "san_francisco",
+        "display_name": "San Francisco",
+        "recipients": [
+            {
+                "name": "San Francisco State University",
+                "uei": "F4SLJ5WF59F6",
+            },
+        ],
+    },
+    {
+        "id": "san_jose",
+        "display_name": "San Jose",
+        "recipients": [
+            {
+                "name": "San Jose State University Research Foundation",
+                "uei": "LJBXV5VF2BT9",
+            },
+            {
+                "name": "San Jose State University",
+                "uei": "ZM6PVFEKEHK1",
+            },
+        ],
+    },
+    {
+        "id": "san_marcos",
+        "display_name": "San Marcos",
+        "recipients": [
+            {
+                "name": "California State University San Marcos Corp",
+                "uei": "EKHKFP33NN53",
+            },
+        ],
+    },
+    {
+        "id": "sonoma",
+        "display_name": "Sonoma",
+        "recipients": [
+            {
+                "name": "Sonoma State University",
+                "uei": "GZ6NCMJFL6R4",
+            },
+        ],
+    },
+    {
+        "id": "stanislaus",
+        "display_name": "Stanislaus",
+        "recipients": [
+            {
+                "name": "California State University, Stanislaus",
+                "uei": "SRT1YX7KJQL4",
+            },
+        ],
+    },
 ]
 
 

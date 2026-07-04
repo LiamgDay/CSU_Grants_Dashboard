@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Added CSUs up to Monterey Bay only in campuses.py. May break program until further changes are made to deal with new entries.">
+    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Added Northridge. USAspending API is extremely slow currently, heavily affecting load speed.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/campuses.py" beforeDir="false" afterPath="$PROJECT_DIR$/campuses.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +98,10 @@
       <workItem from="1783046797845" duration="449000" />
       <workItem from="1783139312517" duration="214000" />
       <workItem from="1783139582733" duration="241000" />
-      <workItem from="1783145294618" duration="391000" />
+      <workItem from="1783145294618" duration="651000" />
+      <workItem from="1783192744766" duration="1137000" />
+      <workItem from="1783196314305" duration="1199000" />
+      <workItem from="1783205853825" duration="966000" />
     </task>
     <task id="LOCAL-00001" summary="Set up workspace and decided to use dataframe for the raw data table.">
       <option name="closed" value="true" />
@@ -189,7 +191,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783047242019</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added Northridge. USAspending API is extremely slow currently, heavily affecting load speed.">
+      <option name="closed" value="true" />
+      <created>1783145927187</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1783145927187</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -207,7 +217,8 @@
     <MESSAGE value="Cleaned load_grants.py." />
     <MESSAGE value="Finished cleaning." />
     <MESSAGE value="Added CSUs up to Monterey Bay only in campuses.py. May break program until further changes are made to deal with new entries." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added CSUs up to Monterey Bay only in campuses.py. May break program until further changes are made to deal with new entries." />
+    <MESSAGE value="Added Northridge. USAspending API is extremely slow currently, heavily affecting load speed." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Northridge. USAspending API is extremely slow currently, heavily affecting load speed." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSU_Grants_Dashboard$dashboard.coverage" NAME="dashboard Coverage Results" MODIFIED="1781921630072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
