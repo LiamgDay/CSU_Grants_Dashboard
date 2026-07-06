@@ -4,9 +4,10 @@ from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
 
 from campuses import CSU_CAMPUSES, get_recipient_options, get_recipients_by_key, recipient_key
 from load_grants import clear_grants_cache, load_grants_dataframe
+from load_contracts import clear_contracts_cache, load_contracts_dataframe
 
 st.set_page_config(layout="wide")
-st.title("CSU Grants Dashboard")
+st.title("CSU Awards Dashboard")
 
 recipient_options = get_recipient_options()
 all_recipient_keys = [option["key"] for option in recipient_options]
@@ -14,8 +15,16 @@ all_recipient_keys = [option["key"] for option in recipient_options]
 if "active_recipient_keys" not in st.session_state:
     st.session_state["active_recipient_keys"] = []
 
+if "active_award_type" not in st.session_state:
+    st.session_state["active_award_type"] = "Grants"
+
 with st.sidebar:
-    st.header("Grant Search")
+    st.header("Award Search")
+
+    award_type = st.selectbox(
+        "Award Type",
+        ["Grants", "Contracts"],
+    )
 
     select_all = st.checkbox("All CSUs", value=False)
     selected_keys = set(all_recipient_keys if select_all else [])
@@ -66,33 +75,51 @@ with st.sidebar:
             step=1,
         )
 
-    if st.button("Load selected grants", type="primary"):
+    if st.button("Load selected awards", type="primary"):
         st.session_state["active_recipient_keys"] = sorted(selected_keys)
+        st.session_state["active_award_type"] = award_type
 
     if st.button("Refresh cached data"):
-        clear_grants_cache()
+        if award_type == "Grants":
+            clear_grants_cache()
+        elif award_type == "Contracts":
+            clear_contracts_cache()
+
         st.session_state["active_recipient_keys"] = sorted(selected_keys)
-        st.success("Cached grant data cleared.")
+        st.session_state["active_award_type"] = award_type
+        st.success(f"Cached {award_type.lower()} data cleared.")
 
 selected_recipients = get_recipients_by_key(st.session_state["active_recipient_keys"])
+active_award_type = st.session_state["active_award_type"]
 
 if not selected_recipients:
-    st.info("Select one or more campuses or recipients, then click Load selected grants.")
+    st.info("Select one or more campuses or recipients, then click Load selected awards.")
     st.stop()
 
-with st.spinner("Loading selected grant data..."):
-    df = load_grants_dataframe(selected_recipients, limit=award_limit)
+with st.spinner(f"Loading selected {active_award_type.lower()} data..."):
+    if active_award_type == "Grants":
+        df = load_grants_dataframe(selected_recipients, limit=award_limit)
+    elif active_award_type == "Contracts":
+        df = load_contracts_dataframe(selected_recipients, limit=award_limit)
 
 if df.empty:
-    st.warning("No grant awards were returned for the selected recipients.")
+    st.warning(f"No {active_award_type.lower()} were returned for the selected recipients.")
     st.stop()
 
 st.caption(
-    f"Showing {len(df):,} awards from {len(selected_recipients):,} selected recipient name(s)."
+    f"Showing {len(df):,} {active_award_type.lower()} from {len(selected_recipients):,} selected recipient name(s)."
 )
 
-df["Obligations"] = pd.to_numeric(df["Obligations"])
-df["Outlays"] = pd.to_numeric(df["Outlays"])
+money_columns = [
+    "Obligations",
+    "Outlays",
+    "Base Exercised Options",
+    "Base and All Options",
+]
+
+for column in money_columns:
+    if column in df.columns:
+        df[column] = pd.to_numeric(df[column])
 
 for column in ["Period of Performance Start", "Period of Performance End"]:
     if column in df.columns:
@@ -113,19 +140,23 @@ gb.configure_default_column(
 gb.configure_column("Recipient Name", minWidth=260)
 gb.configure_column("Awarding Agency", minWidth=220)
 gb.configure_column("Awarding Subagency", minWidth=260)
-gb.configure_column("Assisted Listing", minWidth=420)
 
-gb.configure_column(
-    "Obligations",
-    type=["numericColumn"],
-    valueFormatter="x.toLocaleString('en-US', {style: 'currency', currency: 'USD'})",
-)
+if "Assisted Listing" in df.columns:
+    gb.configure_column("Assisted Listing", minWidth=420)
 
-gb.configure_column(
-    "Outlays",
-    type=["numericColumn"],
-    valueFormatter="x.toLocaleString('en-US', {style: 'currency', currency: 'USD'})",
-)
+if "NAICS" in df.columns:
+    gb.configure_column("NAICS", minWidth=420)
+
+if "PSC" in df.columns:
+    gb.configure_column("PSC", minWidth=420)
+
+for column in money_columns:
+    if column in df.columns:
+        gb.configure_column(
+            column,
+            type=["numericColumn"],
+            valueFormatter="x.toLocaleString('en-US', {style: 'currency', currency: 'USD'})",
+        )
 
 prime_award_link_renderer = JsCode("""
 class PrimeAwardLinkRenderer {

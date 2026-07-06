@@ -142,27 +142,16 @@ CSU_CAMPUSES = [
         "id": "pomona",
         "display_name": "Pomona",
         "recipients": [
-            {
-                "name": "Cal Poly Pomona Foundation Inc",
-                "uei": "JMGMMM7BMBT6",
-            },
+            {"name": "Cal Poly Pomona Foundation Inc", "uei": "JMGMMM7BMBT6"},
         ],
     },
     {
         "id": "sacramento",
         "display_name": "Sacramento",
         "recipients": [
-            {
-                "name": "California State University Sacramento",
-                "uei": "K8JLGZSDVS89",
-            },
-            {
-                "name": "California State University at Sacramento Cen",
-            },
-            {
-                "name": "University Enterprises, Inc.",
-                "uei": "N58JMBDDUGU7",
-            },
+            {"name": "California State University Sacramento", "uei": "K8JLGZSDVS89"},
+            {"name": "California State University at Sacramento Cen"},
+            {"name": "University Enterprises, Inc.", "uei": "N58JMBDDUGU7"},
         ],
     },
     {

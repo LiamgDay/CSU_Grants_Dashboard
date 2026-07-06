@@ -6,7 +6,7 @@ from fetch_grants import fetch_awards_for_recipient
 from transform_grants import award_to_row
 
 
-@st.cache_data(ttl=60 * 60 * 24, show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=3600)
 def load_grants_for_recipient(recipient_name: str, limit: int | None = None) -> pd.DataFrame:
     """Load the grants for one recipient."""
     rows = []
@@ -22,7 +22,7 @@ def load_grants_for_recipient(recipient_name: str, limit: int | None = None) -> 
 def load_grants_dataframe(selected_recipients: list[dict[str, str]],limit: int | None = None) -> pd.DataFrame:
     """Load grants for selected recipients."""
     frames = []
-    for recipient in selected_recipients: # Check how it is used in dashboard.py
+    for recipient in selected_recipients:
         frame = load_grants_for_recipient(recipient["name"], limit)
         if not frame.empty:
             frames.append(frame)
