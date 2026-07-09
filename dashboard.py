@@ -1,10 +1,14 @@
 import pandas as pd
 import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
+from datetime import date
 
 from campuses import CSU_CAMPUSES, get_recipient_options, get_recipients_by_key, recipient_key
-from load_grants import clear_grants_cache, load_grants_dataframe
-from load_contracts import clear_contracts_cache, load_contracts_dataframe
+from load_awards import clear_awards_cache, load_awards_dataframe
+
+
+AWARD_TYPES = ["grants", "contracts", "subgrants", "subcontracts"]
+
 
 st.set_page_config(layout="wide")
 st.title("CSU Awards Dashboard")
@@ -16,14 +20,15 @@ if "active_recipient_keys" not in st.session_state:
     st.session_state["active_recipient_keys"] = []
 
 if "active_award_type" not in st.session_state:
-    st.session_state["active_award_type"] = "Grants"
+    st.session_state["active_award_type"] = "grants"
 
 with st.sidebar:
     st.header("Award Search")
 
     award_type = st.selectbox(
         "Award Type",
-        ["Grants", "Contracts"],
+        AWARD_TYPES,
+        index=AWARD_TYPES.index(st.session_state["active_award_type"])
     )
 
     select_all = st.checkbox("All CSUs", value=False)
@@ -63,6 +68,18 @@ with st.sidebar:
 
     st.divider()
 
+    no_time_restriction = st.checkbox("No time restriction", value=False)
+    start_year = None
+
+    if not no_time_restriction:
+        start_year = st.number_input(
+            "Load awards from year",
+            min_value=2007,
+            max_value=date.today().year,
+            value=2016,
+            step=1
+        )
+
     fetch_all_awards = st.checkbox("Fetch all matching awards", value=True)
     award_limit = None
 
@@ -80,14 +97,11 @@ with st.sidebar:
         st.session_state["active_award_type"] = award_type
 
     if st.button("Refresh cached data"):
-        if award_type == "Grants":
-            clear_grants_cache()
-        elif award_type == "Contracts":
-            clear_contracts_cache()
+        clear_awards_cache()
 
         st.session_state["active_recipient_keys"] = sorted(selected_keys)
         st.session_state["active_award_type"] = award_type
-        st.success(f"Cached {award_type.lower()} data cleared.")
+        st.success(f"Cached {award_type} data cleared.")
 
 selected_recipients = get_recipients_by_key(st.session_state["active_recipient_keys"])
 active_award_type = st.session_state["active_award_type"]
@@ -96,18 +110,20 @@ if not selected_recipients:
     st.info("Select one or more campuses or recipients, then click Load selected awards.")
     st.stop()
 
-with st.spinner(f"Loading selected {active_award_type.lower()} data..."):
-    if active_award_type == "Grants":
-        df = load_grants_dataframe(selected_recipients, limit=award_limit)
-    elif active_award_type == "Contracts":
-        df = load_contracts_dataframe(selected_recipients, limit=award_limit)
+with st.spinner(f"Loading selected {active_award_type} data..."):
+    df = load_awards_dataframe(
+        selected_recipients,
+        active_award_type,
+        limit=award_limit,
+        start_year=start_year
+    )
 
 if df.empty:
-    st.warning(f"No {active_award_type.lower()} were returned for the selected recipients.")
+    st.warning(f"No {active_award_type} were returned for the selected recipients.")
     st.stop()
 
 st.caption(
-    f"Showing {len(df):,} {active_award_type.lower()} from {len(selected_recipients):,} selected recipient name(s)."
+    f"Showing {len(df):,} {active_award_type} from {len(selected_recipients):,} selected recipient name(s)."
 )
 
 money_columns = [
@@ -121,7 +137,13 @@ for column in money_columns:
     if column in df.columns:
         df[column] = pd.to_numeric(df[column])
 
-for column in ["Period of Performance Start", "Period of Performance End"]:
+date_columns = [
+    "Period of Performance Start",
+    "Period of Performance End",
+    "Sub-Award Date"
+]
+
+for column in date_columns:
     if column in df.columns:
         df[column] = pd.to_datetime(df[column], errors="coerce").dt.strftime("%Y-%m-%d")
 
@@ -140,6 +162,9 @@ gb.configure_default_column(
 gb.configure_column("Recipient Name", minWidth=260)
 gb.configure_column("Awarding Agency", minWidth=220)
 gb.configure_column("Awarding Subagency", minWidth=260)
+
+if "Prime Recipient Name" in df.columns:
+    gb.configure_column("Prime Recipient Name", minWidth=260)
 
 if "Assisted Listing" in df.columns:
     gb.configure_column("Assisted Listing", minWidth=420)
@@ -164,11 +189,14 @@ class PrimeAwardLinkRenderer {
         const url = params.data["USAspending URL"];
         const awardId = params.data["Prime Award ID"];
 
-        this.eGui = document.createElement('a');
+        this.eGui = document.createElement(url ? 'a' : 'span');
         this.eGui.innerText = awardId;
-        this.eGui.setAttribute('href', url);
-        this.eGui.setAttribute('target', '_blank');
-        this.eGui.setAttribute('rel', 'noopener noreferrer');
+
+        if (url) {
+            this.eGui.setAttribute('href', url);
+            this.eGui.setAttribute('target', '_blank');
+            this.eGui.setAttribute('rel', 'noopener noreferrer');
+        }
     }
 
     getGui() {
@@ -184,10 +212,11 @@ gb.configure_column(
     minWidth=220,
 )
 
-gb.configure_column(
-    "USAspending URL",
-    hide=True,
-)
+if "USAspending URL" in df.columns:
+    gb.configure_column(
+        "USAspending URL",
+        hide=True,
+    )
 
 gb.configure_grid_options(
     rowHeight=72,
@@ -197,7 +226,6 @@ gb.configure_grid_options(
     pagination=True,
     paginationPageSize=25,
 )
-
 
 grid_options = gb.build()
 

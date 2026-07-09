@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Added contracts.">
-      <change afterPath="$PROJECT_DIR$/fetch_awards.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/load_awards.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/transform_awards.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/load_contracts.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_contracts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetch_awards.py" beforeDir="false" afterPath="$PROJECT_DIR$/fetch_awards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetch_contracts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetch_grants.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/load_awards.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_awards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/load_contracts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/load_grants.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/transform_contracts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/transform_grants.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,12 +35,12 @@
     &quot;assignee&quot;: &quot;LiamgDay&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LiamgDay/CSU_Grants_Dashboard.git&quot;,
-    &quot;accountId&quot;: &quot;b4e7df2d-f0aa-4b2f-93e5-49f58305018d&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/LiamgDay/CSU_Grants_Dashboard.git",
+    "accountId": "d9c53a2b-8206-4f7e-8651-de19675e81b5"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
   &quot;fromUser&quot;: false
@@ -108,6 +115,7 @@
       <workItem from="1783293566600" duration="1002000" />
       <workItem from="1783297634722" duration="4624000" />
       <workItem from="1783474241240" duration="2715000" />
+      <workItem from="1783572774473" duration="4289000" />
     </task>
     <task id="LOCAL-00001" summary="Set up workspace and decided to use dataframe for the raw data table.">
       <option name="closed" value="true" />
