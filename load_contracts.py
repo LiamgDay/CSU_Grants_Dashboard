@@ -6,7 +6,7 @@ from fetch_contracts import fetch_contracts_for_recipient
 from transform_contracts import contract_to_row
 
 
-@st.cache_data(ttl=60 * 60 * 24, show_spinner=False)
+@st.cache_data(show_spinner=False, ttl = 3600)
 def load_contracts_for_recipient(recipient_name: str, limit: int | None = None) -> pd.DataFrame:
     """Load the contracts for one recipient."""
     rows = []
