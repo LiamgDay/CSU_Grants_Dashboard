@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Added contracts.">
-      <change afterPath="$PROJECT_DIR$/transform_awards.py" afterDir="false" />
+    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Refactored. Issues with subawards persist.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetch_awards.py" beforeDir="false" afterPath="$PROJECT_DIR$/fetch_awards.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetch_contracts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetch_grants.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/load_awards.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_awards.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/load_contracts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/load_grants.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/transform_contracts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/transform_grants.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,12 +26,12 @@
     &quot;assignee&quot;: &quot;LiamgDay&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/LiamgDay/CSU_Grants_Dashboard.git",
-    "accountId": "d9c53a2b-8206-4f7e-8651-de19675e81b5"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/LiamgDay/CSU_Grants_Dashboard.git&quot;,
+    &quot;accountId&quot;: &quot;d9c53a2b-8206-4f7e-8651-de19675e81b5&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
   &quot;fromUser&quot;: false
@@ -115,7 +106,9 @@
       <workItem from="1783293566600" duration="1002000" />
       <workItem from="1783297634722" duration="4624000" />
       <workItem from="1783474241240" duration="2715000" />
-      <workItem from="1783572774473" duration="4289000" />
+      <workItem from="1783572774473" duration="5440000" />
+      <workItem from="1783614243978" duration="3747000" />
+      <workItem from="1783653216691" duration="378000" />
     </task>
     <task id="LOCAL-00001" summary="Set up workspace and decided to use dataframe for the raw data table.">
       <option name="closed" value="true" />
@@ -229,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783305279378</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Refactored. Issues with subawards persist.">
+      <option name="closed" value="true" />
+      <created>1783578993409</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1783578993409</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +251,8 @@
     <MESSAGE value="Added Northridge. USAspending API is extremely slow currently, heavily affecting load speed." />
     <MESSAGE value="At least one recipient per university added." />
     <MESSAGE value="Added contracts." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added contracts." />
+    <MESSAGE value="Refactored. Issues with subawards persist." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored. Issues with subawards persist." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSU_Grants_Dashboard$dashboard.coverage" NAME="dashboard Coverage Results" MODIFIED="1781921630072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

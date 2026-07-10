@@ -46,7 +46,7 @@ def load_awards_for_recipient(
                     rows.append(row)
 
             elif award_type in ["subgrants", "subcontracts"]:
-                if row["Prime Recipient Name"].strip().lower() == recipient_name.strip().lower():
+                if row["Recipient Name"].strip().lower() == recipient_name.strip().lower():
                     rows.append(row)
 
     return pd.DataFrame(rows)
