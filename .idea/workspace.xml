@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Refactored. Issues with subawards persist.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/campuses.py" beforeDir="false" afterPath="$PROJECT_DIR$/campuses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetch_awards.py" beforeDir="false" afterPath="$PROJECT_DIR$/fetch_awards.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/load_awards.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_awards.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

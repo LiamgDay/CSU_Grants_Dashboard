@@ -11,7 +11,7 @@ def load_awards_for_recipient(
         recipient_name: str,
         award_type: str,
         limit: int | None = None,
-        start_year: int | None = 2016
+        start_year: int | None = 2019
 ) -> pd.DataFrame:
     """Load awards for one recipient."""
     rows = []
@@ -56,7 +56,7 @@ def load_awards_dataframe(
         selected_recipients: list[dict[str, str]],
         award_type: str,
         limit: int | None = None,
-        start_year: int | None = 2016
+        start_year: int | None = 2019
 ) -> pd.DataFrame:
     """Load awards for selected recipients."""
     frames = []

@@ -14,7 +14,18 @@ st.set_page_config(layout="wide")
 st.title("CSU Awards Dashboard")
 
 recipient_options = get_recipient_options()
-all_recipient_keys = [option["key"] for option in recipient_options]
+active_recipient_options = [
+    option for option in recipient_options
+    if option.get("status", "active") != "ghost"
+]
+ghost_recipient_options = [
+    option for option in recipient_options
+    if option.get("status") == "ghost"
+]
+
+all_active_recipient_keys = [option["key"] for option in active_recipient_options]
+all_ghost_recipient_keys = [option["key"] for option in ghost_recipient_options]
+all_recipient_keys = all_active_recipient_keys + all_ghost_recipient_keys
 
 if "active_recipient_keys" not in st.session_state:
     st.session_state["active_recipient_keys"] = []
@@ -32,15 +43,32 @@ with st.sidebar:
     )
 
     select_all = st.checkbox("All CSUs", value=False)
-    selected_keys = set(all_recipient_keys if select_all else [])
 
-    st.caption("Checking a campus selects every recipient currently mapped under it. Expand a campus to select individual recipients.")
+    selected_ghost_keys = st.multiselect(
+        "Ghost recipients to include",
+        options=all_ghost_recipient_keys,
+        format_func=lambda key: next(
+            f"{option['campus_display_name']} — {option['name']}"
+            for option in ghost_recipient_options
+            if option["key"] == key
+        ),
+        help="Use this for discontinued names, typos, or one-off USAspending recipient names.",
+    )
+
+    selected_keys = set(all_active_recipient_keys if select_all else [])
+    selected_keys.update(selected_ghost_keys)
+
+    
 
     for campus in CSU_CAMPUSES:
         campus_recipients = campus["recipients"]
+        active_campus_recipients = [
+            recipient for recipient in campus_recipients
+            if recipient.get("status", "active") != "ghost"
+        ]
         campus_keys = [
             recipient_key(campus["id"], recipient["name"])
-            for recipient in campus_recipients
+            for recipient in active_campus_recipients
         ]
 
         campus_checked = st.checkbox(
@@ -54,7 +82,7 @@ with st.sidebar:
             selected_keys.update(campus_keys)
 
         with st.expander(f"{campus['display_name']} recipients"):
-            for recipient in campus_recipients:
+            for recipient in active_campus_recipients:
                 key = recipient_key(campus["id"], recipient["name"])
                 recipient_checked = st.checkbox(
                     recipient["name"],
@@ -76,7 +104,7 @@ with st.sidebar:
             "Load awards from year",
             min_value=2007,
             max_value=date.today().year,
-            value=2016,
+            value=2019,
             step=1
         )
 

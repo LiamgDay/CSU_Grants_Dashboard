@@ -1,22 +1,12 @@
 CSU_CAMPUSES = [
     {
-        "id": "san_luis_obispo",
-        "display_name": "San Luis Obispo",
+        "id": "bakersfield",
+        "display_name": "Bakersfield",
         "recipients": [
-            {"name": "California Polytechnic State University", "uei": "CPVFEDRAL3U6"},
-            {"name": "California Polytechnical University", "uei": ""},
-            {"name": "Cal Poly Corporation", "uei": "MC4RJJM9XLT5"},
-        ],
-    },
-    {
-        "id": "san_diego",
-        "display_name": "San Diego",
-        "recipients": [
-            {"name": "San Diego State University Foundation", "uei": "H59JKGFZKHL7"},
-            {"name": "San Diego State University Fou", "uei": ""},
-            {"name": "San Diego State University", "uei": "RN4HGABGRWV7"},
-            {"name": "SDVAFA / SDSU", "uei": ""},
-            {"name": "SDSU Growth Partnership", "uei": ""},
+            {"name": "California State University, Bakersfield Auxiliary for Sponsored Programs Administration", "uei": "VJQPUC5YLK87"},
+            {"name": "California State University Bakersfield", "uei": "KJKYFMDKP1V9"},
+            {"name": "California State University, Bakersfield", "uei": "T3D6LYM21635"},
+            {"name": "California State University, Bakersfield, Foundation", "uei": "NALMGRDCMCH1"},
         ],
     },
     {
@@ -25,16 +15,6 @@ CSU_CAMPUSES = [
         "recipients": [
             {"name": "California State University, Channel Islands Foundation", "uei": "XKLPG9DAK5J9"},
             {"name": "California State University Channel Islands", "uei": "RN64EPNH8JC6"},
-        ],
-    },
-    {
-        "id": "bakersfield",
-        "display_name": "Bakersfield",
-        "recipients": [
-            {"name": "California State University, Bakersfield Auxiliary for Sponsored Programs Administration", "uei": "VJQPUC5YLK87"},
-            {"name": "California State University Bakersfield", "uei": "KJKYFMDKP1V9"},
-            {"name": "California State University, Bakersfield", "uei": "T3D6LYM21635"},
-            {"name": "California State University, Bakersfield, Foundation", "uei": "NALMGRDCMCH1"},
         ],
     },
     {
@@ -165,6 +145,17 @@ CSU_CAMPUSES = [
         ],
     },
     {
+        "id": "san_diego",
+        "display_name": "San Diego",
+        "recipients": [
+            {"name": "San Diego State University Foundation", "uei": "H59JKGFZKHL7"},
+            {"name": "San Diego State University Fou", "uei": ""},
+            {"name": "San Diego State University", "uei": "RN4HGABGRWV7"},
+            {"name": "SDVAFA / SDSU", "uei": ""},
+            {"name": "SDSU Growth Partnership", "uei": ""},
+        ],
+    },
+    {
         "id": "san_francisco",
         "display_name": "San Francisco",
         "recipients": [
@@ -186,6 +177,15 @@ CSU_CAMPUSES = [
                 "name": "San Jose State University",
                 "uei": "ZM6PVFEKEHK1",
             },
+        ],
+    },
+    {
+        "id": "san_luis_obispo",
+        "display_name": "San Luis Obispo",
+        "recipients": [
+            {"name": "California Polytechnic State University", "uei": "CPVFEDRAL3U6"},
+            {"name": "California Polytechnical University", "uei": "", "status": "ghost"},
+            {"name": "Cal Poly Corporation", "uei": "MC4RJJM9XLT5"},
         ],
     },
     {
