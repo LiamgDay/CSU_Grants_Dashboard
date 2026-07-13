@@ -50,7 +50,6 @@ def subaward_to_row(subaward, award_type: str) -> dict[str, Any]:
     row = {
         "Sub-Award ID": subaward.sub_award_id or "Unknown",
         "Prime Award ID": subaward.prime_award_id or "Unknown",
-        "Award Type": subaward.sub_award_type or award_type,
         "Recipient Name": subaward.sub_awardee_name or "Unknown",
         "Recipient UEI": subaward.sub_recipient_uei or "Unknown",
         "Prime Recipient Name": subaward.prime_recipient_name or "Unknown",
@@ -59,15 +58,26 @@ def subaward_to_row(subaward, award_type: str) -> dict[str, Any]:
         "Awarding Agency": subaward.awarding_agency or "Unknown",
         "Awarding Subagency": subaward.awarding_sub_agency or "Unknown",
         "Sub-Award Date": subaward.sub_award_date,
-        "Sub-Award Description": subaward.sub_award_description or "Unknown"
     }
 
     if award_type == "subgrants":
-        row["Assisted Listing"] = subaward.assistance_listing or "Unknown"
+        assistance_listing = subaward.assistance_listing or {}
+
+        row["Assisted Listing"] = (
+            f"{assistance_listing.get('cfda_number') or 'Unknown'} - {assistance_listing.get('cfda_program_title') or 'Unkown'}"
+        )
 
     elif award_type == "subcontracts":
-        row["NAICS"] = subaward.naics or "Unknown"
-        row["PSC"] = subaward.psc or "Unknown"
+        naics = subaward.naics or {}
+        psc = subaward.psc or {}
+
+        row["NAICS"] = (
+            f"{naics.get('code') or 'Unkown'} - {naics.get('description') or 'Unkown'}"
+        )
+
+        row["PSC"] = (
+            f"{psc.get('code') or 'Unknown'} - {psc.get('description') or 'Unknown'}"
+        )
 
     else:
         raise ValueError(f"Unsupported award_type: {award_type}")

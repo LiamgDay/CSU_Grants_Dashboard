@@ -25,7 +25,7 @@ ghost_recipient_options = [
 
 all_active_recipient_keys = [option["key"] for option in active_recipient_options]
 all_ghost_recipient_keys = [option["key"] for option in ghost_recipient_options]
-all_recipient_keys = all_active_recipient_keys + all_ghost_recipient_keys
+
 
 if "active_recipient_keys" not in st.session_state:
     st.session_state["active_recipient_keys"] = []
