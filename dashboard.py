@@ -154,6 +154,19 @@ st.caption(
     f"Showing {len(df):,} {active_award_type} from {len(selected_recipients):,} selected recipient name(s)."
 )
 
+@st.cache_data
+def convert_df_to_csv(dataframe):
+    return dataframe.to_csv(index=False).encode("utf-8")
+
+csv = convert_df_to_csv(df)
+
+st.download_button(
+    label="Download results as CSV",
+    data=csv,
+    file_name=f"csu_{active_award_type}_awards.csv",
+    mime="text/csv",
+)
+
 money_columns = [
     "Obligations",
     "Outlays",
@@ -164,6 +177,16 @@ money_columns = [
 for column in money_columns:
     if column in df.columns:
         df[column] = pd.to_numeric(df[column])
+
+metric_cols = st.columns(len([col for col in money_columns if col in df.columns]))
+
+for metric_col, column in zip(metric_cols, [col for col in money_columns if col in df.columns]):
+    total = df[column].sum()
+
+    metric_col.metric(
+        label=f"Total {column}",
+        value=f"${total:,.0f}"
+    )
 
 date_columns = [
     "Period of Performance Start",
