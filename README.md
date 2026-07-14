@@ -1,7 +1,7 @@
 ### Work In Progress, visit https://csugrants.streamlit.app/ in meantime.
 ## TODO
-1. subaward links
-2. outlays for subawards
-3. bar charts
-4. filter by awarding agency
-5. aln dictionary
+-[x] subaward links 
+- [x] ~~outlays for subawards~~
+- [ ] bar charts
+- [ ] filter by awarding agency 
+- [ ] aln dictionary

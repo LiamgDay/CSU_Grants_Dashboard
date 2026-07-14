@@ -3,12 +3,21 @@ from typing import Any
 
 from usaspending import Award
 
+USASPENDING_AWARD_BASE_URL = "https://www.usaspending.gov/award"
+
+
+def usaspending_award_url_from_generated_id(generated_unique_award_id: str | None) -> str:
+    if not generated_unique_award_id:
+        return ""
+
+    return f"{USASPENDING_AWARD_BASE_URL}/{str(generated_unique_award_id).strip()}"
+
 
 def prime_award_to_row(award: Award, award_type: str) -> dict[str, Any]:
     """Convert one USAspending prime award object into a clean dictionary row."""
     row = {
         "Prime Award ID": award.award_identifier or "Unknown",
-        "USAspending URL": award.usa_spending_url or "Unknown",
+        "USAspending URL": award.usa_spending_url or "",
         "Recipient Name": getattr(award.recipient, "name", None) or "Unknown",
         "Recipient UEI": getattr(award.recipient, "uei", None) or "Unknown",
         "Obligations": award.total_obligation or Decimal("0.00"),
@@ -50,6 +59,7 @@ def subaward_to_row(subaward, award_type: str) -> dict[str, Any]:
     row = {
         "Sub-Award ID": subaward.sub_award_id or "Unknown",
         "Prime Award ID": subaward.prime_award_id or "Unknown",
+        "USAspending URL": usaspending_award_url_from_generated_id(subaward.prime_award_generated_internal_id),
         "Recipient Name": subaward.sub_awardee_name or "Unknown",
         "Recipient UEI": subaward.sub_recipient_uei or "Unknown",
         "Prime Recipient Name": subaward.prime_recipient_name or "Unknown",
