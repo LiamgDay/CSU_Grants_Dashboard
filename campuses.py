@@ -14,7 +14,7 @@ CSU_CAMPUSES = [
         "display_name": "Channel Islands",
         "recipients": [
             {"name": "California State University, Channel Islands Foundation", "uei": "XKLPG9DAK5J9", "status": "active"},
-            {"name": "California State University Channel Islands", "uei": "RN64EPNH8JC6", "status": "active"},
+            {"name": "California State University Channel Islands", "uei": "FGK7C4BSUVK3", "status": "active"},
         ],
     },
     {

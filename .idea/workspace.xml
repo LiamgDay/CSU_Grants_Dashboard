@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Search by UEI not Recipient Name. Added TODO">
+    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Fixed subaward links.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transform_awards.py" beforeDir="false" afterPath="$PROJECT_DIR$/transform_awards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/campuses.py" beforeDir="false" afterPath="$PROJECT_DIR$/campuses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/load_awards.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_awards.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +112,8 @@
       <workItem from="1783653216691" duration="378000" />
       <workItem from="1783911336313" duration="16000" />
       <workItem from="1783918108491" duration="7155000" />
+      <workItem from="1784056274186" duration="2693000" />
+      <workItem from="1784060957467" duration="3670000" />
     </task>
     <task id="LOCAL-00001" summary="Set up workspace and decided to use dataframe for the raw data table.">
       <option name="closed" value="true" />
@@ -249,7 +251,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783921864785</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Fixed subaward links.">
+      <option name="closed" value="true" />
+      <created>1784001274369</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1784001274370</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +283,8 @@
     <MESSAGE value="Refactored. Issues with subawards persist." />
     <MESSAGE value="Setting up EUI searching instead of recipient name. Added &quot;Ghost&quot; recipients." />
     <MESSAGE value="Search by UEI not Recipient Name. Added TODO" />
-    <option name="LAST_COMMIT_MESSAGE" value="Search by UEI not Recipient Name. Added TODO" />
+    <MESSAGE value="Fixed subaward links." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed subaward links." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSU_Grants_Dashboard$dashboard.coverage" NAME="dashboard Coverage Results" MODIFIED="1781921630072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

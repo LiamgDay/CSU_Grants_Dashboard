@@ -6,6 +6,8 @@ from usaspending import USASpendingClient
 from fetch_awards import fetch_prime_awards_for_recipient, fetch_subawards_for_recipient
 from transform_awards import award_to_row
 
+import time
+
 
 def names_match(row_recipient_name: str, expected_recipient_name: str) -> bool:
     """Return True when the returned award recipient name matches the expected ghost recipient name."""
@@ -76,21 +78,60 @@ def load_awards_dataframe(
     limit: int | None = None,
     start_year: int | None = 2016
 ) -> pd.DataFrame:
-    """Load awards for selected recipients."""
     frames = []
+    progress = st.progress(0)
+    status = st.empty()
+    timings = []
 
-    for recipient in selected_recipients:
-        frame = load_awards_for_recipient(
-            recipient_name=recipient["name"],
-            recipient_uei=recipient.get("uei"),
-            recipient_status=recipient.get("status", "active"),
-            award_type=award_type,
-            limit=limit,
-            start_year=start_year
-        )
+    total = len(selected_recipients)
 
-        if not frame.empty:
-            frames.append(frame)
+    for i, recipient in enumerate(selected_recipients, start=1):
+        name = recipient["name"]
+        uei = recipient.get("uei")
+        status.write(f"Loading {i}/{total}: {name} ({uei or 'name search'})")
+
+        start = time.perf_counter()
+
+        try:
+            frame = load_awards_for_recipient(
+                recipient_name=name,
+                recipient_uei=uei,
+                recipient_status=recipient.get("status", "active"),
+                award_type=award_type,
+                limit=limit,
+                start_year=start_year
+            )
+            elapsed = time.perf_counter() - start
+            row_count = len(frame)
+
+            timings.append({
+                "recipient": name,
+                "uei": uei,
+                "seconds": round(elapsed, 2),
+                "rows": row_count
+            })
+
+            if not frame.empty:
+                frames.append(frame)
+
+        except Exception as e:
+            elapsed = time.perf_counter() - start
+            timings.append({
+                "recipient": name,
+                "uei": uei,
+                "seconds": round(elapsed, 2),
+                "rows": "ERROR",
+                "error": str(e)
+            })
+            st.warning(f"Failed on {name}: {e}")
+
+        progress.progress(i / total)
+
+    status.empty()
+    progress.empty()
+
+    with st.expander("Load timing debug"):
+        st.dataframe(pd.DataFrame(timings).sort_values("seconds", ascending=False))
 
     if not frames:
         return pd.DataFrame()
