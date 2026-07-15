@@ -1,4 +1,5 @@
 import pandas as pd
+import altair as alt
 import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
 from datetime import date
@@ -194,6 +195,56 @@ for metric_col, column in zip(metric_cols, [col for col in money_columns if col 
         label=f"Total {column}",
         value=f"${total:,.0f}"
     )
+
+if "Awarding Agency" in df.columns and "Obligations" in df.columns:
+    st.subheader("Obligations by Awarding Agency")
+
+    show_department_of_education = st.toggle(
+        "Show Department of Education",
+        value=True,
+    )
+
+    agency_obligations_df = df
+
+    if not show_department_of_education:
+        agency_obligations_df = agency_obligations_df[
+            agency_obligations_df["Awarding Agency"] != "Department of Education"
+        ]
+
+    agency_obligations = (
+        agency_obligations_df.groupby("Awarding Agency", as_index=False)["Obligations"]
+        .sum()
+        .sort_values("Obligations", ascending=False)
+    )
+
+    if agency_obligations.empty:
+        st.info("No awarding agencies to display.")
+    else:
+        agency_chart = (
+            alt.Chart(agency_obligations)
+            .mark_bar()
+            .encode(
+                x=alt.X(
+                    "Obligations:Q",
+                    title="Obligations",
+                    axis=alt.Axis(format="$,.0f"),
+                ),
+                y=alt.Y(
+                    "Awarding Agency:N",
+                    title="Awarding Agency",
+                    sort="-x",
+                ),
+                tooltip=[
+                    alt.Tooltip("Awarding Agency:N", title="Awarding Agency"),
+                    alt.Tooltip("Obligations:Q", title="Obligations", format="$,.0f"),
+                ],
+            )
+        )
+
+        st.altair_chart(
+            agency_chart,
+            use_container_width=True,
+        )
 
 date_columns = [
     "Period of Performance Start",
