@@ -33,6 +33,12 @@ if "active_recipient_keys" not in st.session_state:
 if "active_award_type" not in st.session_state:
     st.session_state["active_award_type"] = "grants"
 
+if "active_start_year" not in st.session_state:
+    st.session_state["active_start_year"] = 2019
+
+if "active_award_limit" not in st.session_state:
+    st.session_state["active_award_limit"] = None
+
 with st.sidebar:
     st.header("Award Search")
 
@@ -123,16 +129,17 @@ with st.sidebar:
     if st.button("Load selected awards", type="primary"):
         st.session_state["active_recipient_keys"] = sorted(selected_keys)
         st.session_state["active_award_type"] = award_type
+        st.session_state["active_start_year"] = start_year
+        st.session_state["active_award_limit"] = award_limit
 
     if st.button("Refresh cached data"):
         clear_awards_cache()
-
-        st.session_state["active_recipient_keys"] = sorted(selected_keys)
-        st.session_state["active_award_type"] = award_type
-        st.success(f"Cached {award_type} data cleared.")
+        st.success("Cached data cleared. Click Load selected awards to reload with the current sidebar settings.")
 
 selected_recipients = get_recipients_by_key(st.session_state["active_recipient_keys"])
 active_award_type = st.session_state["active_award_type"]
+active_start_year = st.session_state["active_start_year"]
+active_award_limit = st.session_state["active_award_limit"]
 
 if not selected_recipients:
     st.info("Select one or more campuses or recipients, then click Load selected awards.")
@@ -142,8 +149,8 @@ with st.spinner(f"Loading selected {active_award_type} data..."):
     df = load_awards_dataframe(
         selected_recipients,
         active_award_type,
-        limit=award_limit,
-        start_year=start_year
+        limit=active_award_limit,
+        start_year=active_start_year
     )
 
 if df.empty:

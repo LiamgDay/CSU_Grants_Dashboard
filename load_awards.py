@@ -14,7 +14,7 @@ def names_match(row_recipient_name: str, expected_recipient_name: str) -> bool:
     return row_recipient_name.strip().lower() == expected_recipient_name.strip().lower()
 
 
-@st.cache_data(show_spinner=False, ttl=3600)
+@st.cache_data(show_spinner=False)
 def load_awards_for_recipient(
     recipient_name: str,
     recipient_uei: str | None,
@@ -130,8 +130,8 @@ def load_awards_dataframe(
     status.empty()
     progress.empty()
 
-    with st.expander("Load timing debug"):
-        st.dataframe(pd.DataFrame(timings).sort_values("seconds", ascending=False))
+    with st.expander("Load timing"):
+        st.dataframe(pd.DataFrame(timings).sort_values("seconds", ascending=False), hide_index=True)
 
     if not frames:
         return pd.DataFrame()

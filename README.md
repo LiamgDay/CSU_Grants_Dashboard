@@ -2,6 +2,7 @@
 ## TODO
 -[x] subaward links 
 - [x] ~~outlays for subawards~~
+- [ ] decrease runtime
 - [ ] bar charts
 - [ ] filter by awarding agency 
 - [ ] aln dictionary
