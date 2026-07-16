@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Added loading bar and runtime stats.">
+    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Added summary statistics.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/campuses.py" beforeDir="false" afterPath="$PROJECT_DIR$/campuses.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transform_awards.py" beforeDir="false" afterPath="$PROJECT_DIR$/transform_awards.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,6 +116,8 @@
       <workItem from="1784067353602" duration="712000" />
       <workItem from="1784069465209" duration="2387000" />
       <workItem from="1784087514348" duration="816000" />
+      <workItem from="1784153831647" duration="601000" />
+      <workItem from="1784159469393" duration="3565000" />
     </task>
     <task id="LOCAL-00001" summary="Set up workspace and decided to use dataframe for the raw data table.">
       <option name="closed" value="true" />
@@ -270,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784068013922</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Added summary statistics.">
+      <option name="closed" value="true" />
+      <created>1784152875768</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1784152875768</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,7 +305,8 @@
     <MESSAGE value="Search by UEI not Recipient Name. Added TODO" />
     <MESSAGE value="Fixed subaward links." />
     <MESSAGE value="Added loading bar and runtime stats." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added loading bar and runtime stats." />
+    <MESSAGE value="Added summary statistics." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added summary statistics." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSU_Grants_Dashboard$dashboard.coverage" NAME="dashboard Coverage Results" MODIFIED="1781921630072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

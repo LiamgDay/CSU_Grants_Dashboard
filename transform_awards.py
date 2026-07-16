@@ -35,7 +35,6 @@ def prime_award_to_row(award: Award, award_type: str) -> dict[str, Any]:
         )
 
     elif award_type == "contracts":
-        row["PIID"] = award.piid or "Unknown"
         row["Contract Award Type"] = award.contract_award_type or "Unknown"
         row["NAICS"] = (
             f"{award.naics_code or 'Unknown'} - "
@@ -45,9 +44,7 @@ def prime_award_to_row(award: Award, award_type: str) -> dict[str, Any]:
             f"{award.psc_code or 'Unknown'} - "
             f"{award.psc_description or 'Unknown'}"
         )
-        row["Base Exercised Options"] = award.base_exercised_options or Decimal("0.00")
-        row["Base and All Options"] = award.base_and_all_options or Decimal("0.00")
-
+        
     else:
         raise ValueError(f"Unsupported award_type: {award_type}")
 
