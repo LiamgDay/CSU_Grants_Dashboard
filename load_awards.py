@@ -102,6 +102,12 @@ def load_awards_dataframe(
                 start_year=start_year
             )
             elapsed = time.perf_counter() - start
+
+            if not frame.empty:
+                frame = frame.copy()
+                frame["Loaded Recipient"] = name
+                frame["Loaded Campus"] = recipient.get("campus_display_name", name)
+
             row_count = len(frame)
 
             timings.append({

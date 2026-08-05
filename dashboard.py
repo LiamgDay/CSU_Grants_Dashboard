@@ -246,6 +246,59 @@ if "Awarding Agency" in df.columns and "Obligations" in df.columns:
             use_container_width=True,
         )
 
+if (
+    "Awarding Agency" in df.columns
+    and "Loaded Recipient" in df.columns
+    and "Obligations" in df.columns
+):
+    st.subheader("Selected Agency Obligations by Recipient")
+
+    awarding_agency_options = sorted(df["Awarding Agency"].dropna().unique())
+
+    selected_awarding_agency = st.selectbox(
+        "Choose an awarding agency",
+        awarding_agency_options,
+    )
+
+    selected_agency_df = df[
+        df["Awarding Agency"] == selected_awarding_agency
+    ]
+
+    agency_recipient_obligations = (
+        selected_agency_df.groupby("Loaded Recipient", as_index=False)["Obligations"]
+        .sum()
+        .sort_values("Obligations", ascending=False)
+    )
+
+    if agency_recipient_obligations.empty:
+        st.info("No recipient obligations to display for this awarding agency.")
+    else:
+        agency_recipient_chart = (
+            alt.Chart(agency_recipient_obligations)
+            .mark_bar()
+            .encode(
+                x=alt.X(
+                    "Obligations:Q",
+                    title="Obligations",
+                    axis=alt.Axis(format="$,.0f"),
+                ),
+                y=alt.Y(
+                    "Loaded Recipient:N",
+                    title="Selected Recipient",
+                    sort="-x",
+                ),
+                tooltip=[
+                    alt.Tooltip("Loaded Recipient:N", title="Selected Recipient"),
+                    alt.Tooltip("Obligations:Q", title="Obligations", format="$,.0f"),
+                ],
+            )
+        )
+
+        st.altair_chart(
+            agency_recipient_chart,
+            use_container_width=True,
+        )
+
 date_columns = [
     "Period of Performance Start",
     "Period of Performance End",
