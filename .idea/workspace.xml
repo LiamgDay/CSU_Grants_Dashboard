@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Rid of Piid; Base Excised Options; Base and All Options. Dramatically increased runtime.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/load_awards.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_awards.py" afterDir="false" />
-    </list>
+    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Added filtering by agency." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -124,7 +119,7 @@
       <workItem from="1784153831647" duration="601000" />
       <workItem from="1784159469393" duration="3660000" />
       <workItem from="1784163448590" duration="22000" />
-      <workItem from="1785959346406" duration="2564000" />
+      <workItem from="1785959346406" duration="2965000" />
     </task>
     <task id="LOCAL-00001" summary="Set up workspace and decided to use dataframe for the raw data table.">
       <option name="closed" value="true" />
@@ -294,7 +289,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784163154069</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Added filtering by agency.">
+      <option name="closed" value="true" />
+      <created>1785962095959</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1785962095959</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +325,8 @@
     <MESSAGE value="Added loading bar and runtime stats." />
     <MESSAGE value="Added summary statistics." />
     <MESSAGE value="Rid of Piid; Base Excised Options; Base and All Options. Dramatically increased runtime." />
-    <option name="LAST_COMMIT_MESSAGE" value="Rid of Piid; Base Excised Options; Base and All Options. Dramatically increased runtime." />
+    <MESSAGE value="Added filtering by agency." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added filtering by agency." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSU_Grants_Dashboard$dashboard.coverage" NAME="dashboard Coverage Results" MODIFIED="1781921630072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
