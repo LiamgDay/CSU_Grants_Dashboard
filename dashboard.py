@@ -162,19 +162,6 @@ st.caption(
     f"Showing {len(df):,} {active_award_type} from {len(selected_recipients):,} selected recipient name(s)."
 )
 
-@st.cache_data
-def convert_df_to_csv(dataframe):
-    return dataframe.to_csv(index=False).encode("utf-8")
-
-csv = convert_df_to_csv(df)
-
-st.download_button(
-    label="Download results as CSV",
-    data=csv,
-    file_name=f"csu_{active_award_type}_awards.csv",
-    mime="text/csv",
-)
-
 money_columns = [
     "Obligations",
     "Outlays",
@@ -195,6 +182,7 @@ for metric_col, column in zip(metric_cols, [col for col in money_columns if col 
         label=f"Total {column}",
         value=f"${total:,.0f}"
     )
+
 
 if "Awarding Agency" in df.columns and "Obligations" in df.columns:
     st.subheader("Obligations by Awarding Agency")
@@ -245,6 +233,8 @@ if "Awarding Agency" in df.columns and "Obligations" in df.columns:
             agency_chart,
             use_container_width=True,
         )
+
+
 
 if (
     "Awarding Agency" in df.columns
@@ -298,6 +288,24 @@ if (
             agency_recipient_chart,
             use_container_width=True,
         )
+
+@st.cache_data
+def convert_df_to_csv(dataframe):
+    return dataframe.to_csv(index=False).encode("utf-8")
+
+csv = convert_df_to_csv(df)
+
+st.download_button(
+    label="Download results as CSV",
+    data=csv,
+    file_name=f"csu_{active_award_type}_awards.csv",
+    mime="text/csv",
+)
+
+
+
+
+
 
 date_columns = [
     "Period of Performance Start",
