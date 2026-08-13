@@ -8,7 +8,7 @@ from campuses import CSU_CAMPUSES, get_recipient_options, get_recipients_by_key,
 from load_awards import clear_awards_cache, load_awards_dataframe
 
 
-AWARD_TYPES = ["grants", "contracts", "subgrants", "subcontracts"]
+
 
 
 st.set_page_config(layout="wide")
@@ -17,7 +17,7 @@ st.title("CSU Awards Dashboard")
 recipient_options = get_recipient_options()
 active_recipient_options = [
     option for option in recipient_options
-    if option.get("status", "active") != "ghost"
+    if option.get("status") != "ghost"
 ]
 ghost_recipient_options = [
     option for option in recipient_options
@@ -35,7 +35,7 @@ if "active_award_type" not in st.session_state:
     st.session_state["active_award_type"] = "grants"
 
 if "active_start_year" not in st.session_state:
-    st.session_state["active_start_year"] = 2019
+    st.session_state["active_start_year"] = None
 
 if "active_award_limit" not in st.session_state:
     st.session_state["active_award_limit"] = None
@@ -43,29 +43,20 @@ if "active_award_limit" not in st.session_state:
 with st.sidebar:
     st.header("Award Search")
 
-    award_type = st.selectbox(
-        "Award Type",
-        AWARD_TYPES,
-        index=AWARD_TYPES.index(st.session_state["active_award_type"])
-    )
+    award_type = st.selectbox("Award Type", ["grants", "contracts", "subgrants", "subcontracts"])
 
     select_all = st.checkbox("All CSUs", value=False)
+
+    selected_keys = set(all_active_recipient_keys if select_all else [])
 
     selected_ghost_keys = st.multiselect(
         "Ghost recipients to include",
         options=all_ghost_recipient_keys,
-        format_func=lambda key: next(
-            f"{option['campus_display_name']} — {option['name']}"
-            for option in ghost_recipient_options
-            if option["key"] == key
-        ),
+        format_func=lambda key: key.replace("::", " — "),
         help="Use this for discontinued names, typos, or one-off USAspending recipient names.",
     )
 
-    selected_keys = set(all_active_recipient_keys if select_all else [])
     selected_keys.update(selected_ghost_keys)
-
-    
 
     for campus in CSU_CAMPUSES:
         campus_recipients = campus["recipients"]
@@ -103,7 +94,7 @@ with st.sidebar:
 
     st.divider()
 
-    no_time_restriction = st.checkbox("No time restriction", value=False)
+    no_time_restriction = st.checkbox("No time restriction", value=True)
     start_year = None
 
     if not no_time_restriction:
@@ -120,7 +111,7 @@ with st.sidebar:
 
     if not fetch_all_awards:
         award_limit = st.number_input(
-            "Development award limit per recipient",
+            "Award limit per recipient",
             min_value=1,
             max_value=1000,
             value=5,
