@@ -232,33 +232,119 @@ if (
     and "Loaded Recipient" in df.columns
     and "Obligations" in df.columns
 ):
-    st.subheader("Selected Agency Obligations by Recipient")
+    st.subheader("Selected Agency Obligations by Campus")
 
-    awarding_agency_options = sorted(df["Awarding Agency"].dropna().unique())
+    awarding_agency_options = sorted(
+        df["Awarding Agency"].dropna().unique()
+    )
 
-    temp_index = awarding_agency_options.index(agency_obligations.iloc[0]["Awarding Agency"])
+    temp_index = awarding_agency_options.index(
+        agency_obligations.iloc[0]["Awarding Agency"]
+    )
 
     selected_awarding_agency = st.selectbox(
         "Choose an awarding agency",
         awarding_agency_options,
-        index = temp_index
+        index=temp_index,
     )
 
     selected_agency_df = df[
         df["Awarding Agency"] == selected_awarding_agency
-    ]
+    ].copy()
 
-    agency_recipient_obligations = (
-        selected_agency_df.groupby("Loaded Recipient", as_index=False)["Obligations"]
+    recipient_campuses = {
+        recipient["name"]: recipient["campus_display_name"]
+        for recipient in selected_recipients
+    }
+
+    selected_agency_df["Campus"] = (
+        selected_agency_df["Loaded Recipient"]
+        .map(recipient_campuses)
+    )
+
+    campus_obligations = (
+        selected_agency_df.groupby(
+            "Campus",
+            as_index=False,
+        )["Obligations"]
         .sum()
         .sort_values("Obligations", ascending=False)
     )
 
-    if agency_recipient_obligations.empty:
-        st.info("No recipient obligations to display for this awarding agency.")
-    else:
-        agency_recipient_chart = (
-            alt.Chart(agency_recipient_obligations)
+    campus_selection = alt.selection_point(
+        name="campus_selection",
+        fields=["Campus"],
+        on="click",
+        toggle=False,
+    )
+
+    campus_chart = (
+        alt.Chart(campus_obligations)
+        .mark_bar()
+        .encode(
+            x=alt.X(
+                "Obligations:Q",
+                title="Obligations",
+                axis=alt.Axis(format="$,.0f"),
+            ),
+            y=alt.Y(
+                "Campus:N",
+                title="Campus",
+                sort="-x",
+            ),
+            tooltip=[
+                alt.Tooltip(
+                    "Campus:N",
+                    title="Campus",
+                ),
+                alt.Tooltip(
+                    "Obligations:Q",
+                    title="Obligations",
+                    format="$,.0f",
+                ),
+            ],
+        )
+        .add_params(campus_selection)
+    )
+
+    event = st.altair_chart(
+        campus_chart,
+        use_container_width=True,
+        key="campus_obligations_chart",
+        on_select="rerun",
+    )
+
+    selected_campus_data = (
+        event.selection.get("campus_selection", [])
+    )
+
+    if selected_campus_data:
+        selected_campus = (
+            selected_campus_data[0]["Campus"]
+        )
+
+        campus_df = selected_agency_df[
+            selected_agency_df["Campus"] == selected_campus
+        ]
+
+        recipient_obligations = (
+            campus_df.groupby(
+                "Loaded Recipient",
+                as_index=False,
+            )["Obligations"]
+            .sum()
+            .sort_values(
+                "Obligations",
+                ascending=False,
+            )
+        )
+
+        st.subheader(
+            f"{selected_campus} Obligations by Recipient"
+        )
+
+        recipient_chart = (
+            alt.Chart(recipient_obligations)
             .mark_bar()
             .encode(
                 x=alt.X(
@@ -268,18 +354,25 @@ if (
                 ),
                 y=alt.Y(
                     "Loaded Recipient:N",
-                    title="Selected Recipient",
+                    title="Recipient",
                     sort="-x",
                 ),
                 tooltip=[
-                    alt.Tooltip("Loaded Recipient:N", title="Selected Recipient"),
-                    alt.Tooltip("Obligations:Q", title="Obligations", format="$,.0f"),
+                    alt.Tooltip(
+                        "Loaded Recipient:N",
+                        title="Recipient",
+                    ),
+                    alt.Tooltip(
+                        "Obligations:Q",
+                        title="Obligations",
+                        format="$,.0f",
+                    ),
                 ],
             )
         )
 
         st.altair_chart(
-            agency_recipient_chart,
+            recipient_chart,
             use_container_width=True,
         )
 
