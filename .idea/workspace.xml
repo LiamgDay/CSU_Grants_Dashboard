@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Wrote README.md.">
+    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Cleaned dashboard.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
     </list>
@@ -125,6 +125,7 @@
       <workItem from="1785959346406" duration="2965000" />
       <workItem from="1786495693957" duration="938000" />
       <workItem from="1786552437397" duration="7135000" />
+      <workItem from="1786639181379" duration="1647000" />
     </task>
     <task id="LOCAL-00001" summary="Set up workspace and decided to use dataframe for the raw data table.">
       <option name="closed" value="true" />
@@ -310,7 +311,15 @@
       <option name="project" value="LOCAL" />
       <updated>1786496601238</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Cleaned dashboard.py">
+      <option name="closed" value="true" />
+      <created>1786639274991</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1786639274991</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,7 +349,8 @@
     <MESSAGE value="Rid of Piid; Base Excised Options; Base and All Options. Dramatically increased runtime." />
     <MESSAGE value="Added filtering by agency." />
     <MESSAGE value="Wrote README.md." />
-    <option name="LAST_COMMIT_MESSAGE" value="Wrote README.md." />
+    <MESSAGE value="Cleaned dashboard.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaned dashboard.py" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSU_Grants_Dashboard$dashboard.coverage" NAME="dashboard Coverage Results" MODIFIED="1781921630072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

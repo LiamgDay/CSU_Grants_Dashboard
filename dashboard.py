@@ -236,9 +236,12 @@ if (
 
     awarding_agency_options = sorted(df["Awarding Agency"].dropna().unique())
 
+    temp_index = awarding_agency_options.index(agency_obligations.iloc[0]["Awarding Agency"])
+
     selected_awarding_agency = st.selectbox(
         "Choose an awarding agency",
         awarding_agency_options,
+        index = temp_index
     )
 
     selected_agency_df = df[
