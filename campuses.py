@@ -58,7 +58,7 @@ CSU_CAMPUSES = [
         "display_name": "Fullerton",
         "recipients": [
             {"name": "California State University, Fullerton Founda", "uei": "", "status": "ghost"},
-            {"name": "California State University, Fullerton", "uei": "Q4V7X8BCUSH3", "status": "active"},
+            {"name": "California State University, Fullerton", "uei": "Q4V7X8BCUSH3", "status": "ghost"},
             {"name": "California State University -Fullerton", "uei": "H5D8ZCWMBRQ9", "status": "active"},
             {"name": "Associated Students, California State University, Fullerton, Inc", "uei": "PRADK6JRJD98", "status": "active"},
             {"name": "CSU Fullerton Auxiliary Services Corporation", "uei": "VQ5WK498QDC6", "status": "active"},

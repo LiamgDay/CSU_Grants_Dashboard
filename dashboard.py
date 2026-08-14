@@ -178,12 +178,21 @@ for metric_col, column in zip(metric_cols, [col for col in money_columns if col 
 if "Awarding Agency" in df.columns and "Obligations" in df.columns:
     st.subheader("Obligations by Awarding Agency")
 
+    show_education_stabilization = st.toggle(
+        "Show Education Stabilization Fund 84.425",
+        value=True
+    )
     show_department_of_education = st.toggle(
         "Show Department of Education",
-        value=True,
+        value=True
     )
 
     agency_obligations_df = df
+
+    if not show_education_stabilization:
+        agency_obligations_df = agency_obligations_df[
+            agency_obligations_df["Assisted Listing"] != "84.425 - EDUCATION STABILIZATION FUND"
+        ]
 
     if not show_department_of_education:
         agency_obligations_df = agency_obligations_df[
