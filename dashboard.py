@@ -12,7 +12,9 @@ from load_awards import clear_awards_cache, load_awards_dataframe
 
 
 st.set_page_config(layout="wide")
-st.title("CSU Awards Dashboard")
+st.title("CSU Chancellor's Office Federal Awards Dashboard")
+st.header("Built for the Office of Federal Relations")
+st.subheader("")
 
 recipient_options = get_recipient_options()
 active_recipient_options = [
