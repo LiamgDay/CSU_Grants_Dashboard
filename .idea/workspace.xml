@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="Added 84.425 toggle and fixed Agency Obligations by campus." />
+    <list default="true" id="4924d21f-e8df-4cbc-818d-881d9b670ec1" name="Changes" comment="fixed title">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -124,6 +128,8 @@
       <workItem from="1786552437397" duration="7135000" />
       <workItem from="1786639181379" duration="4167000" />
       <workItem from="1786724407706" duration="2887000" />
+      <workItem from="1786986212544" duration="250000" />
+      <workItem from="1786990958102" duration="5661000" />
     </task>
     <task id="LOCAL-00001" summary="Set up workspace and decided to use dataframe for the raw data table.">
       <option name="closed" value="true" />
@@ -341,15 +347,29 @@
       <option name="project" value="LOCAL" />
       <updated>1786727318646</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Title change">
+      <option name="closed" value="true" />
+      <created>1786986425218</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1786986425218</updated>
+    </task>
+    <task id="LOCAL-00029" summary="fixed title">
+      <option name="closed" value="true" />
+      <created>1786986455681</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1786986455681</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changed display columns. Implemented Prime Award ID + URL. Rid of indices, fixed dollar formatting, kept dates as is due to PS dashboard." />
-    <MESSAGE value="Changed dataframe to AgGrid." />
     <MESSAGE value="Major changes to entire project to accommodate more CSUs and searching by one CSU at a time." />
     <MESSAGE value="Finished the TODOs from last push." />
     <MESSAGE value="requirements.txt added" />
@@ -373,7 +393,9 @@
     <MESSAGE value="Default agency obligations graph set to biggest by obligation." />
     <MESSAGE value="Agency Obligations graph changed to Obligations by Campus and allows clicking on a campus to check Obligations by recipients." />
     <MESSAGE value="Added 84.425 toggle and fixed Agency Obligations by campus." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added 84.425 toggle and fixed Agency Obligations by campus." />
+    <MESSAGE value="Title change" />
+    <MESSAGE value="fixed title" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed title" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSU_Grants_Dashboard$dashboard.coverage" NAME="dashboard Coverage Results" MODIFIED="1781921630072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

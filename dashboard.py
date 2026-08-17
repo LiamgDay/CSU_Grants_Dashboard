@@ -189,17 +189,21 @@ if "Awarding Agency" in df.columns and "Obligations" in df.columns:
         value=True
     )
 
-    agency_obligations_df = df
+    agency_obligations_df = df.copy()
 
-    if not show_education_stabilization:
+    if (
+            not show_education_stabilization
+            and "Assisted Listing" in agency_obligations_df.columns
+    ):
         agency_obligations_df = agency_obligations_df[
-            agency_obligations_df["Assisted Listing"] != "84.425 - EDUCATION STABILIZATION FUND"
-        ]
+            agency_obligations_df["Assisted Listing"]
+            != "84.425 - EDUCATION STABILIZATION FUND"
+            ]
 
     if not show_department_of_education:
         agency_obligations_df = agency_obligations_df[
             agency_obligations_df["Awarding Agency"] != "Department of Education"
-        ]
+            ]
 
     agency_obligations = (
         agency_obligations_df.groupby("Awarding Agency", as_index=False)["Obligations"]
@@ -246,7 +250,7 @@ if (
     st.subheader("Selected Agency Obligations by Campus")
 
     awarding_agency_options = sorted(
-        df["Awarding Agency"].dropna().unique()
+        agency_obligations_df["Awarding Agency"].dropna().unique()
     )
 
     temp_index = awarding_agency_options.index(
@@ -259,9 +263,9 @@ if (
         index=temp_index,
     )
 
-    selected_agency_df = df[
-        df["Awarding Agency"] == selected_awarding_agency
-    ].copy()
+    selected_agency_df = agency_obligations_df[
+        agency_obligations_df["Awarding Agency"] == selected_awarding_agency
+        ].copy()
 
     recipient_campuses = {
         recipient["name"]: recipient["campus_display_name"]
@@ -354,6 +358,13 @@ if (
             f"{selected_campus} Obligations by Recipient"
         )
 
+        recipient_selection = alt.selection_point(
+            name="recipient_selection",
+            fields=["Loaded Recipient"],
+            on="click",
+            toggle=False,
+        )
+
         recipient_chart = (
             alt.Chart(recipient_obligations)
             .mark_bar()
@@ -380,12 +391,220 @@ if (
                     ),
                 ],
             )
+            .add_params(recipient_selection)
         )
 
-        st.altair_chart(
+        recipient_event = st.altair_chart(
             recipient_chart,
             use_container_width=True,
+            key="recipient_obligations_chart",
+            on_select="rerun",
         )
+
+        selected_recipient_data = (
+            recipient_event.selection.get("recipient_selection", [])
+        )
+
+        if selected_recipient_data:
+            selected_recipient = (
+                selected_recipient_data[0]["Loaded Recipient"]
+            )
+
+            if "Assisted Listing" in campus_df.columns:
+                recipient_df = campus_df[
+                    campus_df["Loaded Recipient"] == selected_recipient
+                    ].copy()
+
+                if (
+                        selected_awarding_agency == "Department of Health and Human Services"
+                        and "Awarding Subagency" in recipient_df.columns
+                ):
+                    subagency_obligations = (
+                        recipient_df.dropna(subset=["Awarding Subagency"])
+                        .groupby(
+                            "Awarding Subagency",
+                            as_index=False,
+                        )["Obligations"]
+                        .sum()
+                        .sort_values(
+                            "Obligations",
+                            ascending=False,
+                        )
+                    )
+
+                    st.subheader(
+                        f"{selected_recipient} Obligations by HHS Subagency"
+                    )
+
+                    subagency_selection = alt.selection_point(
+                        name="subagency_selection",
+                        fields=["Awarding Subagency"],
+                        on="click",
+                        toggle=False,
+                    )
+
+                    subagency_chart = (
+                        alt.Chart(subagency_obligations)
+                        .mark_bar()
+                        .encode(
+                            x=alt.X(
+                                "Obligations:Q",
+                                title="Obligations",
+                                axis=alt.Axis(format="$,.0f"),
+                            ),
+                            y=alt.Y(
+                                "Awarding Subagency:N",
+                                title="HHS Subagency",
+                                sort="-x",
+                            ),
+                            tooltip=[
+                                alt.Tooltip(
+                                    "Awarding Subagency:N",
+                                    title="HHS Subagency",
+                                ),
+                                alt.Tooltip(
+                                    "Obligations:Q",
+                                    title="Obligations",
+                                    format="$,.0f",
+                                ),
+                            ],
+                        )
+                        .add_params(subagency_selection)
+                    )
+
+                    subagency_event = st.altair_chart(
+                        subagency_chart,
+                        use_container_width=True,
+                        key="subagency_obligations_chart",
+                        on_select="rerun",
+                    )
+
+                    selected_subagency_data = (
+                        subagency_event.selection.get(
+                            "subagency_selection",
+                            [],
+                        )
+                    )
+
+                    if selected_subagency_data:
+                        selected_subagency = (
+                            selected_subagency_data[0]["Awarding Subagency"]
+                        )
+
+                        subagency_df = recipient_df[
+                            recipient_df["Awarding Subagency"]
+                            == selected_subagency
+                            ].copy()
+
+                        aln_obligations = (
+                            subagency_df.groupby(
+                                "Assisted Listing",
+                                as_index=False,
+                            )["Obligations"]
+                            .sum()
+                            .sort_values(
+                                "Obligations",
+                                ascending=False,
+                            )
+                            .rename(
+                                columns={"Assisted Listing": "ALN"}
+                            )
+                        )
+
+                        st.subheader(
+                            f"{selected_subagency} Obligations by ALN"
+                        )
+
+                        aln_chart = (
+                            alt.Chart(aln_obligations)
+                            .mark_bar()
+                            .encode(
+                                x=alt.X(
+                                    "Obligations:Q",
+                                    title="Obligations",
+                                    axis=alt.Axis(format="$,.0f"),
+                                ),
+                                y=alt.Y(
+                                    "ALN:N",
+                                    title="ALN",
+                                    sort="-x",
+                                ),
+                                tooltip=[
+                                    alt.Tooltip(
+                                        "ALN:N",
+                                        title="ALN",
+                                    ),
+                                    alt.Tooltip(
+                                        "Obligations:Q",
+                                        title="Obligations",
+                                        format="$,.0f",
+                                    ),
+                                ],
+                            )
+                        )
+
+                        st.altair_chart(
+                            aln_chart,
+                            use_container_width=True,
+                        )
+
+                else:
+                    aln_obligations = (
+                        recipient_df.groupby(
+                            "Assisted Listing",
+                            as_index=False,
+                        )["Obligations"]
+                        .sum()
+                        .sort_values(
+                            "Obligations",
+                            ascending=False,
+                        )
+                        .rename(
+                            columns={"Assisted Listing": "ALN"}
+                        )
+                    )
+
+                    st.subheader(
+                        f"{selected_recipient} Obligations by ALN"
+                    )
+
+                    aln_chart = (
+                        alt.Chart(aln_obligations)
+                        .mark_bar()
+                        .encode(
+                            x=alt.X(
+                                "Obligations:Q",
+                                title="Obligations",
+                                axis=alt.Axis(format="$,.0f"),
+                            ),
+                            y=alt.Y(
+                                "ALN:N",
+                                title="ALN",
+                                sort="-x",
+                            ),
+                            tooltip=[
+                                alt.Tooltip(
+                                    "ALN:N",
+                                    title="ALN",
+                                ),
+                                alt.Tooltip(
+                                    "Obligations:Q",
+                                    title="Obligations",
+                                    format="$,.0f",
+                                ),
+                            ],
+                        )
+                    )
+
+                    st.altair_chart(
+                        aln_chart,
+                        use_container_width=True,
+                    )
+
+            else:
+                st.info(
+                    "ALN breakdowns are available for grants and subgrants only."
+                )
 
 @st.cache_data
 def convert_df_to_csv(dataframe):

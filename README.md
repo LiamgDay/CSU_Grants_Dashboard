@@ -1,6 +1,4 @@
-# TODO 
-- batching by campus (fix)
-- toggle from email
+# TODO
 - Editable recipient names list
 - aln dictionary
 - Update README
