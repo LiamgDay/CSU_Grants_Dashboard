@@ -253,6 +253,7 @@ if "Awarding Agency" in df.columns and "Obligations" in df.columns:
 if (
     "Awarding Agency" in df.columns
     and "Loaded Recipient" in df.columns
+    and "Loaded Campus" in df.columns
     and "Obligations" in df.columns
 ):
     st.subheader("Selected Agency Obligations by Campus")
@@ -275,19 +276,11 @@ if (
         agency_obligations_df["Awarding Agency"] == selected_awarding_agency
         ].copy()
 
-    recipient_campuses = {
-        recipient["name"]: recipient["campus_display_name"]
-        for recipient in selected_recipients
-    }
 
-    selected_agency_df["Campus"] = (
-        selected_agency_df["Loaded Recipient"]
-        .map(recipient_campuses)
-    )
 
     campus_obligations = (
         selected_agency_df.groupby(
-            "Campus",
+            "Loaded Campus",
             as_index=False,
         )["Obligations"]
         .sum()
@@ -296,7 +289,7 @@ if (
 
     campus_selection = alt.selection_point(
         name="campus_selection",
-        fields=["Campus"],
+        fields=["Loaded Campus"],
         on="click",
         toggle=False,
     )
@@ -311,13 +304,13 @@ if (
                 axis=alt.Axis(format="$,.0f"),
             ),
             y=alt.Y(
-                "Campus:N",
+                "Loaded Campus:N",
                 title="Campus",
                 sort="-x",
             ),
             tooltip=[
                 alt.Tooltip(
-                    "Campus:N",
+                    "Loaded Campus:N",
                     title="Campus",
                 ),
                 alt.Tooltip(
@@ -343,11 +336,11 @@ if (
 
     if selected_campus_data:
         selected_campus = (
-            selected_campus_data[0]["Campus"]
+            selected_campus_data[0]["Loaded Campus"]
         )
 
         campus_df = selected_agency_df[
-            selected_agency_df["Campus"] == selected_campus
+            selected_agency_df["Loaded Campus"] == selected_campus
         ]
 
         recipient_obligations = (
