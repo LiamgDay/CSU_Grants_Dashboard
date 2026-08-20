@@ -130,6 +130,14 @@ with st.sidebar:
         clear_awards_cache()
         st.success("Cached data cleared. Click Load selected awards to reload with the current sidebar settings.")
 
+    st.divider()
+
+    st.markdown(
+        'Have a correction or recommendation? '
+        '[Email us](mailto:bjohns@calstate.edu'
+        '?subject=STREAMLIT%20Recommendation)'
+    )
+
 selected_recipients = get_recipients_by_key(st.session_state["active_recipient_keys"])
 active_award_type = st.session_state["active_award_type"]
 active_start_year = st.session_state["active_start_year"]

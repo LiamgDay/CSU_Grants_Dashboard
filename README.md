@@ -1,7 +1,3 @@
-# TODO
-- Editable recipient names list
-- aln dictionary
-- Update README
 # CSU Grants Dashboard
 ## Getting Started
 - The CSU Grants Dashboard is powered by a public Python library called Streamlit. Streamlit hosts the server, so all you have to do is click [here](https://csugrants.streamlit.app/) to access the dashboard. If the link doesn't work, simply typing csugrants.streamlit.app into your browser should. 
