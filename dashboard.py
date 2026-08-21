@@ -135,7 +135,7 @@ with st.sidebar:
     st.markdown(
         'Have a correction or recommendation? '
         '[Email us](mailto:bjohns@calstate.edu'
-        '?subject=STREAMLIT%20Recommendation)'
+        '?subject=Streamlit%20Issue%20Report)'
     )
 
 selected_recipients = get_recipients_by_key(st.session_state["active_recipient_keys"])
