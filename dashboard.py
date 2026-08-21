@@ -262,9 +262,12 @@ if (
         agency_obligations_df["Awarding Agency"].dropna().unique()
     )
 
-    temp_index = awarding_agency_options.index(
-        agency_obligations.iloc[0]["Awarding Agency"]
-    )
+    if not agency_obligations.empty:
+        temp_index = awarding_agency_options.index(
+            agency_obligations.iloc[0]["Awarding Agency"]
+        )
+    else:
+        temp_index = 0
 
     selected_awarding_agency = st.selectbox(
         "Choose an awarding agency",

@@ -20,8 +20,8 @@ def load_awards_for_recipient(
     recipient_uei: str | None,
     recipient_status: str,
     award_type: str,
-    limit: int | None = None,
-    start_year: int | None = 2016
+    start_year: int | None,
+    limit: int | None = None
 ) -> pd.DataFrame:
     """Load awards for one recipient.
 
@@ -75,8 +75,8 @@ def load_awards_for_recipient(
 def load_awards_dataframe(
     selected_recipients: list[dict[str, str]],
     award_type: str,
-    limit: int | None = None,
-    start_year: int | None = 2016
+    start_year: int | None,
+    limit: int | None = None
 ) -> pd.DataFrame:
     frames = []
     progress = st.progress(0)

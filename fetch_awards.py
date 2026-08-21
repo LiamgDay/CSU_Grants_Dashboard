@@ -19,8 +19,8 @@ def fetch_prime_awards_for_recipient(
         client: USASpendingClient,
         recipient_search_text: str,
         award_type: str,
+        start_year: int | None,
         limit: int | None = None,
-        start_year: int | None = 2019
 ):
     """Perform the API call, return list of prime awards found by querying recipient_search_text"""
     #recipient_search_text seems to be similar to Filter By Keyword but only supports recipient name, UEI, or DUNS.
@@ -50,8 +50,8 @@ def fetch_subawards_for_recipient(
         client: USASpendingClient,
         recipient_search_text: str,
         subaward_type: str,
-        limit: int | None = None,
-        start_year: int | None = 2019
+        start_year: int | None,
+        limit: int | None = None
 ):
     """Perform the API call, return list of subawards found by querying recipient_search_text"""
     #recipient_search_text seems to be similar to Filter By Keyword but only supports recipient name, UEI, or DUNS.
