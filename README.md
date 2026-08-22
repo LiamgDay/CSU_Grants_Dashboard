@@ -47,6 +47,30 @@
 - Some ALN data may also be requested to be changed in the ALN Library. 
 - As USAspending's database is constantly updating, you may find recipient names present at usaspending.gov that don't appear in our dashboard. This would be another great thing to email, as we can change this as well. 
 
+## Development and Project Layout
+
+- The project is split into a few different Python files to keep the dashboard itself from becoming too difficult to navigate. `dashboard.py` is the main Streamlit page and contains the user interface, sidebar controls, tables, graphs, and other elements the user interacts with.
+
+- `campuses.py` contains the CSU campus information and recipient names used by the dashboard. This includes the Active and Ghost recipient groups discussed earlier in this README. Changes to recipient names, UEIs, campus groupings, or recipient status are made here.
+
+- `load_awards.py` controls the process of loading award data for the recipients selected in the dashboard. For each recipient, it determines whether USAspending should be searched by UEI or recipient name, calls the correct function in `fetch_awards.py`, sends each returned award through `transform_awards.py`, and combines the transformed rows into one Pandas DataFrame. It also adds the campus and loaded-recipient information used later by the dashboard, records load timing information, handles errors between recipients, and controls the per-recipient Streamlit cache. Active recipients with a UEI are searched by UEI, while Ghost recipients and recipients without a UEI are searched by name and have their returned recipient names checked before being included. This is because searching by name will return other names that are spelled similarly. 
+
+- `fetch_awards.py` contains the functions that communicate directly with USAspending. It builds and performs the API searches for prime awards and subawards based on the award type, recipient search value, year restriction, and row limit passed in from `load_awards.py`.
+
+- `transform_awards.py` takes the award objects returned by USAspending and converts them into the consistent row format expected by the rest of the dashboard. This allows grants, contracts, subgrants, and subcontracts to eventually be handled as rows in the same Pandas DataFrame even though USAspending does not return every award type in the same format.
+
+- The `pages` folder contains the separate ALN Library Streamlit page, while `aln_dictionary.csv` contains the ALN information displayed by that page.
+
+The general path of award data through the project is:
+
+`dashboard.py` → `load_awards.py` → `fetch_awards.py` → `transform_awards.py` → `load_awards.py` → `dashboard.py` → user interface
+
+`dashboard.py` first passes the selected recipients and search settings into `load_awards.py`. `load_awards.py` determines how each recipient needs to be searched and passes that information into `fetch_awards.py`. The returned USAspending awards are then sent through `transform_awards.py`, combined into a DataFrame by `load_awards.py`, and returned to `dashboard.py` where the tables, totals, and graphs are created.
+
+A lot of the project's developmental decisions came from working around USAspending's data. Recipient names can change, be misspelled, or remain attached to older awards, which is why the Active and Ghost recipient system exists. Searching Active recipients by UEI also avoids relying on recipient names when a reliable identifier is available. This helps with runtime.
+
+Caching was included because loading many recipients directly from USAspending can require a large number of API requests. Each recipient's results are cached separately, allowing later searches to reuse previously loaded data instead of repeating the same requests. The Refresh cache data button clears this cache when newer USAspending data needs to be pulled.
+
 ## Acknowledgements
 - Development of this project was assisted by ChatGPT and Claude. 
 - Thanks to Dr. Bethany Johns for project guidance and providing ongoing feedback throughout development.
